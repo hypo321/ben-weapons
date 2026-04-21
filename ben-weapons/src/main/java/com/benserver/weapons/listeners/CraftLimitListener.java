@@ -2,7 +2,9 @@ package com.benserver.weapons.listeners;
 
 import com.benserver.weapons.items.CustomWeapons;
 import com.benserver.weapons.managers.CraftLimitManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,5 +37,36 @@ public class CraftLimitListener implements Listener {
 
         craftLimitManager.markCrafted(weaponType);
         player.sendMessage(ChatColor.GOLD + "✦ Weapon crafted! You are the only one on the server who will ever have this.");
+        broadcastForge(player, weaponType);
+    }
+
+    private void broadcastForge(Player crafter, String weaponType) {
+        String title;
+        String subtitle = ChatColor.WHITE + "There can only be one.";
+        Sound sound;
+
+        switch (weaponType) {
+            case CustomWeapons.FIRE_SWORD_ID -> {
+                title = ChatColor.RED + "" + ChatColor.BOLD
+                    + "⚔ " + crafter.getName() + " has forged the Fire Blitz Sword!";
+                sound = Sound.ENTITY_BLAZE_SHOOT;
+            }
+            case CustomWeapons.LIGHTNING_AXE_ID -> {
+                title = ChatColor.AQUA + "" + ChatColor.BOLD
+                    + "⚡ " + crafter.getName() + " has forged the Lightning Axe!";
+                sound = Sound.ENTITY_LIGHTNING_BOLT_THUNDER;
+            }
+            case CustomWeapons.DASH_MACE_ID -> {
+                title = ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD
+                    + "💨 " + crafter.getName() + " has forged the Dash Mace!";
+                sound = Sound.ENTITY_ENDER_PEARL_THROW;
+            }
+            default -> { return; }
+        }
+
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            online.sendTitle(title, subtitle, 10, 80, 20);
+            online.playSound(online.getLocation(), sound, 1.0f, 1.0f);
+        }
     }
 }
