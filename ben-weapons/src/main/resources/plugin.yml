@@ -1,5 +1,5 @@
 name: BenWeapons
-version: 1.2.0
+version: 1.3.0
 main: com.benserver.weapons.BenWeaponsPlugin
 api-version: '1.21'
 description: Custom craftable weapons exclusive to Ben's server!
@@ -13,6 +13,12 @@ commands:
   sword:
     description: Activate the Fire Blitz Sword ability
     usage: /sword ability activate
+  trust:
+    description: Trust a player so your weapons won't harm them
+    usage: /trust <player>
+  untrust:
+    description: Revoke trust from a player
+    usage: /untrust <player>
 
 permissions:
   benweapons.give:

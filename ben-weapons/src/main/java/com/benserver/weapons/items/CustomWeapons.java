@@ -83,6 +83,8 @@ public class CustomWeapons {
         ));
 
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
+        meta.addEnchant(Enchantment.DENSITY, 5, true);
+        meta.addEnchant(Enchantment.BREACH, 4, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);

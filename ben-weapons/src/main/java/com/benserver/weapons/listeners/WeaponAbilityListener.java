@@ -3,6 +3,7 @@ package com.benserver.weapons.listeners;
 import com.benserver.weapons.BenWeaponsPlugin;
 import com.benserver.weapons.items.CustomWeapons;
 import com.benserver.weapons.managers.CooldownManager;
+import com.benserver.weapons.managers.TrustManager;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
@@ -17,12 +18,14 @@ public class WeaponAbilityListener implements Listener {
     private final BenWeaponsPlugin plugin;
     private final CooldownManager cooldownManager;
     private final CustomWeapons customWeapons;
+    private final TrustManager trustManager;
 
     public WeaponAbilityListener(BenWeaponsPlugin plugin, CooldownManager cooldownManager,
-                                  CustomWeapons customWeapons) {
+                                  CustomWeapons customWeapons, TrustManager trustManager) {
         this.plugin = plugin;
         this.cooldownManager = cooldownManager;
         this.customWeapons = customWeapons;
+        this.trustManager = trustManager;
     }
 
     // ── MACE: off-hand key (swap-hands action) ───────────────────────
@@ -52,6 +55,15 @@ public class WeaponAbilityListener implements Listener {
     public void onPlayerHit(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player)) return;
 
+        // Cancel all custom-weapon damage to trusted players
+        if (event.getEntity() instanceof Player target) {
+            String heldType = customWeapons.getWeaponType(player.getInventory().getItemInMainHand());
+            if (heldType != null && trustManager.isTrusted(player.getUniqueId(), target.getUniqueId())) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+
         String weaponType = customWeapons.getWeaponType(player.getInventory().getItemInMainHand());
         if (!CustomWeapons.LIGHTNING_AXE_ID.equals(weaponType)) return;
 
@@ -78,10 +90,18 @@ public class WeaponAbilityListener implements Listener {
     }
 
     private void activateLightningStrike(Player player) {
-        var target = player.getTargetBlockExact(30);
-        Location strike = (target != null)
-            ? target.getLocation().add(0.5, 0, 0.5)
+        var targetBlock = player.getTargetBlockExact(30);
+        Location strike = (targetBlock != null)
+            ? targetBlock.getLocation().add(0.5, 0, 0.5)
             : player.getEyeLocation().add(player.getEyeLocation().getDirection().multiply(30));
+
+        // Don't lightning-strike trusted players standing at the target location
+        for (org.bukkit.entity.Entity nearby : player.getWorld().getNearbyEntities(strike, 2, 2, 2)) {
+            if (nearby instanceof Player hit && trustManager.isTrusted(player.getUniqueId(), hit.getUniqueId())) {
+                player.sendMessage(ChatColor.YELLOW + "Lightning redirected — " + hit.getName() + " is trusted.");
+                return;
+            }
+        }
 
         player.getWorld().strikeLightning(strike);
 
