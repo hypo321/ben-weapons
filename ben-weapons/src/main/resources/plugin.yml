@@ -13,14 +13,23 @@ commands:
   sword:
     description: Activate the Fire Blitz Sword ability
     usage: /sword ability activate
+    permission: benweapons.sword
   trust:
     description: Trust a player so your weapons won't harm them
     usage: /trust <player>
+    permission: benweapons.trust
   untrust:
     description: Revoke trust from a player
     usage: /untrust <player>
+    permission: benweapons.trust
 
 permissions:
   benweapons.give:
     description: Allows giving custom weapons to players
     default: op
+  benweapons.sword:
+    description: Allows using /sword ability activate
+    default: true
+  benweapons.trust:
+    description: Allows using /trust and /untrust
+    default: true

@@ -6,7 +6,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
-public class TrustCommand implements CommandExecutor {
+import java.util.List;
+
+public class TrustCommand implements CommandExecutor, TabCompleter {
 
     private final TrustManager trustManager;
     private final boolean isTrust;
@@ -57,5 +59,18 @@ public class TrustCommand implements CommandExecutor {
         }
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            String partial = args[0].toLowerCase();
+            return Bukkit.getOnlinePlayers().stream()
+                .map(Player::getName)
+                .filter(name -> !name.equalsIgnoreCase(sender.getName()))
+                .filter(name -> name.toLowerCase().startsWith(partial))
+                .toList();
+        }
+        return List.of();
     }
 }
