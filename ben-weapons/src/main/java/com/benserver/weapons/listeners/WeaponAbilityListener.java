@@ -6,6 +6,7 @@ import com.benserver.weapons.managers.CooldownManager;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.*;
@@ -24,16 +25,17 @@ public class WeaponAbilityListener implements Listener {
         this.customWeapons = customWeapons;
     }
 
+    // ── MACE: off-hand key (swap-hands action) ───────────────────────
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (!event.getAction().isRightClick()) return;
-        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (event.getHand() != EquipmentSlot.OFF_HAND) return;
 
         Player player = event.getPlayer();
         String weaponType = customWeapons.getWeaponType(player.getInventory().getItemInMainHand());
-        if (weaponType == null) return;
+        if (!CustomWeapons.DASH_MACE_ID.equals(weaponType)) return;
 
-        int cooldownLeft = cooldownManager.getCooldownSeconds(player, weaponType);
+        int cooldownLeft = cooldownManager.getCooldownSeconds(player, CustomWeapons.DASH_MACE_ID);
         if (cooldownLeft > 0) {
             player.sendMessage(ChatColor.RED + "⏳ Wait " + cooldownLeft + " more second"
                 + (cooldownLeft == 1 ? "" : "s") + "!");
@@ -41,17 +43,26 @@ public class WeaponAbilityListener implements Listener {
         }
 
         event.setCancelled(true);
-
-        switch (weaponType) {
-            case CustomWeapons.FIRE_SWORD_ID    -> activateFireBlitz(player);
-            case CustomWeapons.LIGHTNING_AXE_ID -> activateLightningStrike(player);
-            case CustomWeapons.DASH_MACE_ID     -> activateDash(player);
-        }
-
-        cooldownManager.setCooldown(player, weaponType);
+        activateDash(player);
+        cooldownManager.setCooldown(player, CustomWeapons.DASH_MACE_ID);
     }
 
-    private void activateFireBlitz(Player player) {
+    // ── AXE: auto-triggers on hit when off cooldown ──────────────────
+    @EventHandler
+    public void onPlayerHit(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Player player)) return;
+
+        String weaponType = customWeapons.getWeaponType(player.getInventory().getItemInMainHand());
+        if (!CustomWeapons.LIGHTNING_AXE_ID.equals(weaponType)) return;
+
+        if (cooldownManager.getCooldownSeconds(player, CustomWeapons.LIGHTNING_AXE_ID) > 0) return;
+
+        activateLightningStrike(player);
+        cooldownManager.setCooldown(player, CustomWeapons.LIGHTNING_AXE_ID);
+    }
+
+    // ── SWORD: activated via /sword ability activate (see SwordCommand) ──
+    public void activateFireBlitz(Player player) {
         Location eye = player.getEyeLocation();
         Vector dir = eye.getDirection().normalize();
 

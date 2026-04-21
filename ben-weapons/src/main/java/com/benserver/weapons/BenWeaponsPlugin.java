@@ -1,5 +1,6 @@
 package com.benserver.weapons;
 
+import com.benserver.weapons.commands.SwordCommand;
 import com.benserver.weapons.commands.WeaponsCommand;
 import com.benserver.weapons.items.CustomWeapons;
 import com.benserver.weapons.listeners.WeaponAbilityListener;
@@ -19,13 +20,13 @@ public class BenWeaponsPlugin extends JavaPlugin {
 
         customWeapons.registerRecipes();
 
-        getServer().getPluginManager().registerEvents(
-            new WeaponAbilityListener(this, cooldownManager, customWeapons), this
-        );
+        WeaponAbilityListener abilityListener = new WeaponAbilityListener(this, cooldownManager, customWeapons);
+        getServer().getPluginManager().registerEvents(abilityListener, this);
 
         new PassiveEffectsTask(customWeapons).runTaskTimer(this, 0L, 20L);
 
         getCommand("benweapons").setExecutor(new WeaponsCommand(customWeapons));
+        getCommand("sword").setExecutor(new SwordCommand(customWeapons, cooldownManager, abilityListener));
 
         getLogger().info("╔══════════════════════════════════════╗");
         getLogger().info("║   Ben's Custom Weapons — Loaded!     ║");

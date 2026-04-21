@@ -32,7 +32,7 @@ public class CustomWeapons {
 
         meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "⚔ Fire Blitz Sword");
         meta.setLore(Arrays.asList(
-            ChatColor.GOLD + "Right-click to unleash a blazing fireball!",
+            ChatColor.GOLD + "Use /sword ability activate to unleash a fireball!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "30 seconds",
             "",
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Fire Resistance (always active)"
@@ -54,7 +54,7 @@ public class CustomWeapons {
 
         meta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "⚡ Lightning Axe");
         meta.setLore(Arrays.asList(
-            ChatColor.AQUA + "Right-click to call down a lightning strike!",
+            ChatColor.AQUA + "Auto-strikes lightning on hit when off cooldown!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "25 seconds",
             "",
             ChatColor.GREEN + "✦ On Use: " + ChatColor.WHITE + "Regeneration II (20 seconds)"
@@ -76,7 +76,7 @@ public class CustomWeapons {
 
         meta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "💨 Dash Mace");
         meta.setLore(Arrays.asList(
-            ChatColor.LIGHT_PURPLE + "Right-click to dash 20 blocks forward!",
+            ChatColor.LIGHT_PURPLE + "Press F (off-hand) to dash 20 blocks forward!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "15 seconds",
             "",
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Speed II (always active)"
