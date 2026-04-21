@@ -8,7 +8,7 @@ Players can craft them like normal items — they're a perk of being on his serv
 ## Prerequisites (Claude Code should check these first)
 
 1. **Java 21+** must be installed (`java -version`)
-2. **Maven** must be installed (`mvn -version`)  
+2. **Maven** must be installed (`mvn -version`)
    — If missing on Mac: `brew install maven`
 3. Create the project folder at `~/minecrafting/ben-weapons/`
 
@@ -217,10 +217,10 @@ public class CustomWeapons {
     }
 
     // ── WEAPON 1: Fire Blitz Sword ──────────────────────────────────
-    // Recipe:  [ _ ] [B] [ _ ]
-    //          [F]   [S] [F]
-    //          [ _ ] [B] [ _ ]
-    // B=Blaze Rod, F=Fire Charge, S=Iron Sword
+    // Recipe:  [H] [I] [H]
+    //          [B] [Q] [B]
+    //          [H] [R] [H]
+    // H=Player Head,Q=Nether Quartz, I=Netherite Ingot,B=Blaze Powder, R=Blaze Rod
     public ItemStack createFireBlitzSword() {
         ItemStack item = new ItemStack(Material.IRON_SWORD);
         ItemMeta meta = item.getItemMeta();
@@ -244,10 +244,10 @@ public class CustomWeapons {
     }
 
     // ── WEAPON 2: Lightning Axe ─────────────────────────────────────
-    // Recipe:  [G] [G] [ ]
-    //          [G] [A] [ ]
-    //          [ ] [B] [ ]
-    // G=Gold Ingot, A=Iron Axe, B=Blaze Rod
+    // Recipe:  [H] [A] [H]
+    //          [G] [L] [G]
+    //          [H] [L] [H]
+    // H=Player Head, A=Netherite Axe, G=Gold Ingot, L=Lightning Rod
     public ItemStack createLightningAxe() {
         ItemStack item = new ItemStack(Material.IRON_AXE);
         ItemMeta meta = item.getItemMeta();
@@ -271,10 +271,10 @@ public class CustomWeapons {
     }
 
     // ── WEAPON 3: Dash Mace ─────────────────────────────────────────
-    // Recipe:  [E] [ ] [E]
-    //          [ ] [M] [ ]
-    //          [E] [ ] [E]
-    // E=Ender Pearl, M=Mace
+    // Recipe:  [H] [C] [H]
+    //          [E] [I] [E]
+    //          [H] [B] [H]
+    // H=Player Head, C=Heavy Core, E=Echo Shard, I=Netherite Ingot, B=Breeze Rod
     public ItemStack createDashMace() {
         ItemStack item = new ItemStack(Material.MACE);
         ItemMeta meta = item.getItemMeta();
@@ -651,9 +651,9 @@ cp target/BenWeapons.jar ~/minecrafting/BenWeapons.jar
 
 | Weapon | Crafting Ingredients | Ability (right-click) | Passive (in inventory) |
 |--------|---------------------|----------------------|----------------------|
-| ⚔ Fire Blitz Sword | Iron Sword + 2 Fire Charges + 2 Blaze Rods | Launches a fireball (40s cooldown) | Fire Resistance forever |
-| ⚡ Lightning Axe | Iron Axe + 3 Gold Ingots + 1 Blaze Rod | Strikes lightning + gives Regen II for 20s (40s cooldown) | None |
-| 💨 Dash Mace | Mace + 4 Ender Pearls | Dashes ~20 blocks forward (30s cooldown) | Speed II forever |
+| ⚔ Fire Blitz Sword | 4x Player Head + 1x Netherite Ingot + 2x Blaze Powder + 1x Nether Quartz + 1x Blaze Rod | Launches a fireball (30s cooldown) | Fire Resistance forever |
+| ⚡ Lightning Axe | 4x Player Head + 1x Netherite Axe + 2x Gold Ingot + 2x Lightning Rod | Strikes lightning + gives Regen II for 20s (25s cooldown) | None |
+| 💨 Dash Mace | 4x Player Head + 1x Heavy Core + 2x Echo Shard + 1x Netherite Ingot + 1x Breeze Rod | Dashes ~20 blocks forward (15s cooldown) | Speed II forever |
 
 ---
 

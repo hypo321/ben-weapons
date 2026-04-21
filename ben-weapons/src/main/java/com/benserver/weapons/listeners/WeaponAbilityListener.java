@@ -63,7 +63,7 @@ public class WeaponAbilityListener implements Listener {
 
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0f, 0.8f);
         player.getWorld().spawnParticle(Particle.FLAME, eye, 20, 0.2, 0.2, 0.2, 0.05);
-        player.sendMessage(ChatColor.RED + "🔥 Fire Blitz! " + ChatColor.GRAY + "(40s cooldown)");
+        player.sendMessage(ChatColor.RED + "🔥 Fire Blitz! " + ChatColor.GRAY + "(30s cooldown)");
     }
 
     private void activateLightningStrike(Player player) {
@@ -78,7 +78,7 @@ public class WeaponAbilityListener implements Listener {
 
         player.sendMessage(ChatColor.AQUA + "⚡ Lightning Strike! "
             + ChatColor.GREEN + "Regen II for 20s. "
-            + ChatColor.GRAY + "(40s cooldown)");
+            + ChatColor.GRAY + "(25s cooldown)");
     }
 
     private void activateDash(Player player) {
@@ -90,6 +90,6 @@ public class WeaponAbilityListener implements Listener {
 
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_PEARL_THROW, 1.0f, 1.2f);
         player.getWorld().spawnParticle(Particle.CLOUD, player.getLocation(), 15, 0.3, 0.1, 0.3, 0.05);
-        player.sendMessage(ChatColor.LIGHT_PURPLE + "💨 Dash! " + ChatColor.GRAY + "(30s cooldown)");
+        player.sendMessage(ChatColor.LIGHT_PURPLE + "💨 Dash! " + ChatColor.GRAY + "(15s cooldown)");
     }
 }

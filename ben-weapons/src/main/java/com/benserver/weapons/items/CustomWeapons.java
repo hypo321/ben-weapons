@@ -33,7 +33,7 @@ public class CustomWeapons {
         meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "⚔ Fire Blitz Sword");
         meta.setLore(Arrays.asList(
             ChatColor.GOLD + "Right-click to unleash a blazing fireball!",
-            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "40 seconds",
+            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "30 seconds",
             "",
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Fire Resistance (always active)"
         ));
@@ -55,7 +55,7 @@ public class CustomWeapons {
         meta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "⚡ Lightning Axe");
         meta.setLore(Arrays.asList(
             ChatColor.AQUA + "Right-click to call down a lightning strike!",
-            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "40 seconds",
+            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "25 seconds",
             "",
             ChatColor.GREEN + "✦ On Use: " + ChatColor.WHITE + "Regeneration II (20 seconds)"
         ));
@@ -77,7 +77,7 @@ public class CustomWeapons {
         meta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "💨 Dash Mace");
         meta.setLore(Arrays.asList(
             ChatColor.LIGHT_PURPLE + "Right-click to dash 20 blocks forward!",
-            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "30 seconds",
+            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "15 seconds",
             "",
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Speed II (always active)"
         ));
@@ -92,28 +92,52 @@ public class CustomWeapons {
         return item;
     }
 
+    // ── WEAPON 1: Fire Blitz Sword ──────────────────────────────────
+    // Recipe:  [H] [I] [H]
+    //          [B] [Q] [B]
+    //          [H] [R] [H]
+    // H=Player Head, I=Netherite Ingot, B=Blaze Powder, Q=Nether Quartz, R=Blaze Rod
+
+    // ── WEAPON 2: Lightning Axe ─────────────────────────────────────
+    // Recipe:  [H] [A] [H]
+    //          [G] [L] [G]
+    //          [H] [L] [H]
+    // H=Player Head, A=Netherite Axe, G=Gold Ingot, L=Lightning Rod
+
+    // ── WEAPON 3: Dash Mace ─────────────────────────────────────────
+    // Recipe:  [H] [C] [H]
+    //          [E] [I] [E]
+    //          [H] [B] [H]
+    // H=Player Head, C=Heavy Core, E=Echo Shard, I=Netherite Ingot, B=Breeze Rod
+
     public void registerRecipes() {
         ShapedRecipe fireSword = new ShapedRecipe(
             new NamespacedKey(plugin, "fire_blitz_sword"), createFireBlitzSword());
-        fireSword.shape(" B ", "FSF", " B ");
-        fireSword.setIngredient('B', Material.BLAZE_ROD);
-        fireSword.setIngredient('F', Material.FIRE_CHARGE);
-        fireSword.setIngredient('S', Material.IRON_SWORD);
+        fireSword.shape("HIH", "BQB", "HRH");
+        fireSword.setIngredient('H', Material.PLAYER_HEAD);
+        fireSword.setIngredient('I', Material.NETHERITE_INGOT);
+        fireSword.setIngredient('B', Material.BLAZE_POWDER);
+        fireSword.setIngredient('Q', Material.QUARTZ);
+        fireSword.setIngredient('R', Material.BLAZE_ROD);
         Bukkit.addRecipe(fireSword);
 
         ShapedRecipe lightningAxe = new ShapedRecipe(
             new NamespacedKey(plugin, "lightning_axe"), createLightningAxe());
-        lightningAxe.shape("GG ", "GA ", " B ");
+        lightningAxe.shape("HAH", "GLG", "HLH");
+        lightningAxe.setIngredient('H', Material.PLAYER_HEAD);
+        lightningAxe.setIngredient('A', Material.NETHERITE_AXE);
         lightningAxe.setIngredient('G', Material.GOLD_INGOT);
-        lightningAxe.setIngredient('A', Material.IRON_AXE);
-        lightningAxe.setIngredient('B', Material.BLAZE_ROD);
+        lightningAxe.setIngredient('L', Material.LIGHTNING_ROD);
         Bukkit.addRecipe(lightningAxe);
 
         ShapedRecipe dashMace = new ShapedRecipe(
             new NamespacedKey(plugin, "dash_mace"), createDashMace());
-        dashMace.shape("E E", " M ", "E E");
-        dashMace.setIngredient('E', Material.ENDER_PEARL);
-        dashMace.setIngredient('M', Material.MACE);
+        dashMace.shape("HCH", "EIE", "HBH");
+        dashMace.setIngredient('H', Material.PLAYER_HEAD);
+        dashMace.setIngredient('C', Material.HEAVY_CORE);
+        dashMace.setIngredient('E', Material.ECHO_SHARD);
+        dashMace.setIngredient('I', Material.NETHERITE_INGOT);
+        dashMace.setIngredient('B', Material.BREEZE_ROD);
         Bukkit.addRecipe(dashMace);
 
         plugin.getLogger().info("Custom weapon recipes registered!");

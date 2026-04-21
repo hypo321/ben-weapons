@@ -10,9 +10,9 @@ A [Paper](https://papermc.io/) Minecraft server plugin that adds **three craftab
 
 | Weapon | Ability (right-click) | Cooldown | Passive |
 |--------|----------------------|----------|---------|
-| ⚔ **Fire Blitz Sword** | Launches a fireball | 40s | Fire Resistance (always active) |
-| ⚡ **Lightning Axe** | Strikes lightning + grants Regen II for 20s | 40s | None |
-| 💨 **Dash Mace** | Dashes ~20 blocks forward | 30s | Speed II (always active) |
+| ⚔ **Fire Blitz Sword** | Launches a fireball | 30s | Fire Resistance (always active) |
+| ⚡ **Lightning Axe** | Strikes lightning + grants Regen II for 20s | 25s | None |
+| 💨 **Dash Mace** | Dashes ~20 blocks forward | 15s | Speed II (always active) |
 
 ---
 
@@ -21,25 +21,25 @@ A [Paper](https://papermc.io/) Minecraft server plugin that adds **three craftab
 ### ⚔ Fire Blitz Sword
 
 ```
-[ _ ] [Blaze Rod] [ _ ]
-[Fire Charge] [Iron Sword] [Fire Charge]
-[ _ ] [Blaze Rod] [ _ ]
+[Player Head]  [Netherite Ingot] [Player Head]
+[Blaze Powder] [Nether Quartz]   [Blaze Powder]
+[Player Head]  [Blaze Rod]       [Player Head]
 ```
 
 ### ⚡ Lightning Axe
 
 ```
-[Gold Ingot] [Gold Ingot] [ _ ]
-[Gold Ingot] [Iron Axe]   [ _ ]
-[ _ ]        [Blaze Rod]  [ _ ]
+[Player Head] [Netherite Axe] [Player Head]
+[Gold Ingot]  [Lightning Rod] [Gold Ingot]
+[Player Head] [Lightning Rod] [Player Head]
 ```
 
 ### 💨 Dash Mace
 
 ```
-[Ender Pearl] [ _ ]  [Ender Pearl]
-[ _ ]         [Mace] [ _ ]
-[Ender Pearl] [ _ ]  [Ender Pearl]
+[Player Head]    [Heavy Core]      [Player Head]
+[Echo Shard]     [Netherite Ingot] [Echo Shard]
+[Player Head]    [Breeze Rod]      [Player Head]
 ```
 
 ---
