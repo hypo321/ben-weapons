@@ -112,7 +112,7 @@ public class WeaponAbilityListener implements Listener {
     private void activateDash(Player player) {
         Vector dir = player.getEyeLocation().getDirection();
         dir.setY(Math.max(dir.getY(), 0.1));
-        dir.normalize().multiply(1.8);
+        dir.normalize().multiply(3.0);
 
         player.setVelocity(dir);
 
