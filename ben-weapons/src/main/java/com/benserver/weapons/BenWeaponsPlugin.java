@@ -21,7 +21,7 @@ public class BenWeaponsPlugin extends JavaPlugin {
     public void onEnable() {
         cooldownManager = new CooldownManager();
         customWeapons = new CustomWeapons(this);
-        trustManager = new TrustManager();
+        trustManager = new TrustManager(this);
 
         customWeapons.registerRecipes();
 
@@ -46,6 +46,7 @@ public class BenWeaponsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (trustManager != null) trustManager.save();
         getLogger().info("Ben's Custom Weapons plugin disabled.");
     }
 
