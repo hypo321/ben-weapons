@@ -472,19 +472,26 @@
 			<div class="step">
 				<div class="step-num">2</div>
 				<div class="step-body">
-					<h4>Upload to your server</h4>
-					<p>Drop <code>BenWeapons.jar</code> into your server's <code>plugins/</code> folder via FTP, SFTP, or your hosting panel's file manager.</p>
+					<h4>Replace the old file</h4>
+					<p>Go to your server's <code>plugins/</code> folder. <strong>Delete</strong> any existing <code>BenWeapons.jar</code> first, then upload the new one. If you skip the delete step, your hosting panel may keep both files.</p>
 				</div>
 			</div>
 			<div class="step">
 				<div class="step-num">3</div>
 				<div class="step-body">
-					<h4>Restart the server</h4>
-					<p>A full restart (not reload) is recommended. You'll see a confirmation in the console when the plugin loads.</p>
+					<h4>Fully restart the server</h4>
+					<p><strong>Stop and start the server — do not use <code>/reload</code>.</strong> A reload will not pick up the new JAR. You must do a full stop → start cycle.</p>
 				</div>
 			</div>
 			<div class="step">
 				<div class="step-num">4</div>
+				<div class="step-body">
+					<h4>Confirm the version</h4>
+					<p>Once back in-game, run <code>/benweapons version</code>. It will show the version number — check it matches the release you just downloaded before reporting any issues.</p>
+				</div>
+			</div>
+			<div class="step">
+				<div class="step-num">5</div>
 				<div class="step-body">
 					<h4>Craft away!</h4>
 					<p>All three weapons appear in the in-game recipe book automatically. No additional configuration required.</p>
