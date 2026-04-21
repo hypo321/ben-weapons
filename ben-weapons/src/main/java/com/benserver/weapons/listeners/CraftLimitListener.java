@@ -27,13 +27,13 @@ public class CraftLimitListener implements Listener {
         String weaponType = customWeapons.getWeaponType(result);
         if (weaponType == null) return;
 
-        if (craftLimitManager.hasCrafted(player.getUniqueId(), weaponType)) {
+        if (craftLimitManager.hasBeenCrafted(weaponType)) {
             event.setCancelled(true);
-            player.sendMessage(ChatColor.RED + "✖ You have already crafted this weapon — each player can only craft it once.");
+            player.sendMessage(ChatColor.RED + "✖ This weapon has already been crafted on the server — only one can ever exist.");
             return;
         }
 
-        craftLimitManager.markCrafted(player.getUniqueId(), weaponType);
-        player.sendMessage(ChatColor.GOLD + "✦ Weapon crafted! This is a one-time craft — keep it safe.");
+        craftLimitManager.markCrafted(weaponType);
+        player.sendMessage(ChatColor.GOLD + "✦ Weapon crafted! You are the only one on the server who will ever have this.");
     }
 }
