@@ -73,24 +73,38 @@
 		}
 
 		.btn {
-			display: inline-block;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
 			background: linear-gradient(135deg, var(--fire), #dc2626);
 			color: #fff;
 			font-weight: 700;
 			text-decoration: none;
-			padding: 14px 32px;
+			padding: 16px 36px;
 			border-radius: 10px;
-			font-size: 1rem;
-			transition: opacity 0.2s, transform 0.2s;
+			font-size: 1.05rem;
+			transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
 			margin: 0 8px;
+			box-shadow: 0 0 0 0 rgba(249,115,22,0.5);
+			animation: pulse 2.5s infinite;
 		}
 
-		.btn:hover { opacity: 0.88; transform: translateY(-1px); }
+		@keyframes pulse {
+			0%   { box-shadow: 0 0 0 0 rgba(249,115,22,0.45); }
+			70%  { box-shadow: 0 0 0 12px rgba(249,115,22,0); }
+			100% { box-shadow: 0 0 0 0 rgba(249,115,22,0); }
+		}
+
+		.btn:hover { opacity: 0.9; transform: translateY(-2px); animation: none; box-shadow: 0 6px 24px rgba(249,115,22,0.4); }
 
 		.btn.secondary {
 			background: var(--card);
 			border: 1px solid var(--border);
 			color: var(--text);
+			animation: none;
+			box-shadow: none;
+			padding: 14px 24px;
+			font-size: 0.95rem;
 		}
 
 		/* ── LAYOUT ── */
@@ -313,7 +327,12 @@
 			<span class="badge">3 Weapons</span>
 			<span class="badge">Craftable in-game</span>
 		</div>
-		<a href="https://github.com/hypo321/ben-weapons/releases/latest" class="btn">⬇ Download .jar</a>
+		<a href="https://github.com/hypo321/ben-weapons/releases/latest/download/BenWeapons.jar" class="btn" download>
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+			Download BenWeapons.jar
+		</a>
+		<br style="margin: 8px 0; display:block;">
+		<a href="https://github.com/hypo321/ben-weapons/releases" class="btn secondary">📋 All releases</a>
 		<a href="https://github.com/hypo321/ben-weapons" class="btn secondary">GitHub →</a>
 	</div>
 </div>
@@ -446,7 +465,7 @@
 				<div class="step-num">1</div>
 				<div class="step-body">
 					<h4>Download the plugin</h4>
-					<p>Grab the latest <code>BenWeapons.jar</code> from the <a href="https://github.com/hypo321/ben-weapons/releases/latest" style="color:var(--fire);">Releases page</a>.</p>
+					<p>Click the <a href="https://github.com/hypo321/ben-weapons/releases/latest/download/BenWeapons.jar" style="color:var(--fire);" download>Download BenWeapons.jar</a> button above — it downloads the latest version directly, no extra clicks needed.</p>
 				</div>
 			</div>
 			<div class="step">
