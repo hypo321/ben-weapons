@@ -8,8 +8,7 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.potion.*;
 import org.bukkit.util.Vector;
 
@@ -28,15 +27,14 @@ public class WeaponAbilityListener implements Listener {
         this.trustManager = trustManager;
     }
 
-    // ── MACE: off-hand key (swap-hands action) ───────────────────────
+    // ── MACE: F key (swap-hands) ──────────────────────────────────────
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
-        if (!event.getAction().isRightClick()) return;
-        if (event.getHand() != EquipmentSlot.OFF_HAND) return;
-
+    public void onSwapHands(PlayerSwapHandItemsEvent event) {
         Player player = event.getPlayer();
         String weaponType = customWeapons.getWeaponType(player.getInventory().getItemInMainHand());
         if (!CustomWeapons.DASH_MACE_ID.equals(weaponType)) return;
+
+        event.setCancelled(true);
 
         int cooldownLeft = cooldownManager.getCooldownSeconds(player, CustomWeapons.DASH_MACE_ID);
         if (cooldownLeft > 0) {
@@ -45,7 +43,6 @@ public class WeaponAbilityListener implements Listener {
             return;
         }
 
-        event.setCancelled(true);
         activateDash(player);
         cooldownManager.setCooldown(player, CustomWeapons.DASH_MACE_ID);
     }
