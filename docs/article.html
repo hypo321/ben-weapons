@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Building a Minecraft Plugin with Claude Code</title>
+	<style>
+		:root {
+			--bg: #0f1117;
+			--surface: #1a1d27;
+			--card: #20243a;
+			--border: #2e3352;
+			--text: #e2e8f0;
+			--muted: #94a3b8;
+			--fire: #f97316;
+			--lightning: #38bdf8;
+			--dash: #c084fc;
+			--gold: #fbbf24;
+			--green: #4ade80;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+
+		body {
+			font-family: 'Segoe UI', system-ui, sans-serif;
+			background: var(--bg);
+			color: var(--text);
+			line-height: 1.7;
+		}
+
+		/* ── NAV ── */
+		nav {
+			border-bottom: 1px solid var(--border);
+			padding: 14px 20px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		nav a {
+			color: var(--muted);
+			text-decoration: none;
+			font-size: 0.88rem;
+			transition: color 0.15s;
+		}
+
+		nav a:hover { color: var(--text); }
+		nav .sep { color: var(--border); }
+
+		/* ── HERO ── */
+		.hero {
+			background: linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #12172a 100%);
+			border-bottom: 1px solid var(--border);
+			padding: 72px 20px 56px;
+			text-align: center;
+		}
+
+		.hero .label {
+			display: inline-block;
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 999px;
+			padding: 5px 14px;
+			font-size: 0.78rem;
+			color: var(--muted);
+			font-weight: 600;
+			margin-bottom: 20px;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+		}
+
+		.hero h1 {
+			font-size: clamp(1.8rem, 4vw, 2.8rem);
+			font-weight: 800;
+			letter-spacing: -0.02em;
+			background: linear-gradient(90deg, var(--fire), var(--lightning), var(--dash));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			margin-bottom: 18px;
+			max-width: 700px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.hero .sub {
+			font-size: 1.05rem;
+			color: var(--muted);
+			max-width: 540px;
+			margin: 0 auto;
+		}
+
+		/* ── ARTICLE BODY ── */
+		.container {
+			max-width: 720px;
+			margin: 0 auto;
+			padding: 64px 20px 80px;
+		}
+
+		.container h2 {
+			font-size: 1.45rem;
+			font-weight: 700;
+			color: var(--text);
+			margin: 48px 0 16px;
+		}
+
+		.container h2:first-child { margin-top: 0; }
+
+		.container p {
+			color: var(--muted);
+			margin-bottom: 18px;
+			font-size: 1rem;
+		}
+
+		.container p strong { color: var(--text); }
+
+		.container a {
+			color: var(--fire);
+			text-decoration: none;
+		}
+
+		.container a:hover { text-decoration: underline; }
+
+		/* ── PULL QUOTE ── */
+		blockquote {
+			border-left: 3px solid var(--fire);
+			margin: 32px 0;
+			padding: 16px 24px;
+			background: var(--card);
+			border-radius: 0 10px 10px 0;
+			color: var(--text);
+			font-size: 1.05rem;
+			font-style: italic;
+		}
+
+		/* ── INLINE CODE ── */
+		code {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			padding: 1px 6px;
+			font-size: 0.88em;
+			color: var(--gold);
+			font-family: 'Courier New', monospace;
+		}
+
+		/* ── FEATURE CARDS ── */
+		.feature-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 14px;
+			margin: 24px 0;
+		}
+
+		.feature-card {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 20px;
+		}
+
+		.feature-card .icon { font-size: 1.6rem; margin-bottom: 8px; }
+
+		.feature-card h4 {
+			font-size: 0.92rem;
+			font-weight: 700;
+			color: var(--text);
+			margin-bottom: 5px;
+		}
+
+		.feature-card p {
+			font-size: 0.82rem;
+			color: var(--muted);
+			margin: 0;
+		}
+
+		/* ── DIVIDER ── */
+		hr {
+			border: none;
+			border-top: 1px solid var(--border);
+			margin: 48px 0;
+		}
+
+		/* ── STACK TABLE ── */
+		.stack {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			margin: 20px 0;
+		}
+
+		.stack-row {
+			display: flex;
+			gap: 16px;
+			align-items: baseline;
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 12px 16px;
+			font-size: 0.9rem;
+		}
+
+		.stack-row .label {
+			color: var(--muted);
+			min-width: 120px;
+			font-size: 0.82rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+		}
+
+		.stack-row .value { color: var(--text); }
+
+		/* ── FOOTER ── */
+		footer {
+			text-align: center;
+			padding: 40px 20px;
+			color: var(--muted);
+			font-size: 0.85rem;
+			border-top: 1px solid var(--border);
+		}
+
+		footer a { color: var(--fire); text-decoration: none; }
+		footer a:hover { text-decoration: underline; }
+	</style>
+</head>
+<body>
+
+<nav>
+	<a href="index.html">⚔ Ben's Custom Weapons</a>
+	<span class="sep">/</span>
+	<a href="article.html" style="color: var(--text);">How We Built It</a>
+</nav>
+
+<div class="hero">
+	<div class="label">Behind the build</div>
+	<h1>Building a Minecraft Plugin with Claude Code</h1>
+	<p class="sub">How a custom weapons mod went from a spec file to a shipping plugin in an afternoon</p>
+</div>
+
+<div class="container">
+
+	<p>Ben wanted something special for his Minecraft server — three exclusive weapons that only his players could craft. Not just reskins, but items with custom abilities, passive effects, and real gameplay weight. The catch: neither of us had written a Paper plugin before.</p>
+
+	<h2>The Starting Point</h2>
+
+	<p>The project began with a spec file: <a href="https://github.com/hypo321/ben-weapons/blob/main/BenWeapons-ClaudeCode-Spec.md">BenWeapons-ClaudeCode-Spec.md</a>. It described three weapons, their abilities, and the full Java source to implement them. Claude Code read the spec, checked prerequisites (Java 21, Maven), created the entire project directory structure, wrote all source files, and ran <code>mvn clean package</code> — producing a working <code>BenWeapons.jar</code> in a single session.</p>
+
+	<p>The tech stack was deliberately minimal: <strong>Java 21</strong>, <strong>Paper API 1.21.4</strong>, and <strong>Maven</strong> with no runtime dependencies beyond the server itself. The output is a single JAR that drops into any Paper server's <code>plugins/</code> folder.</p>
+
+	<div class="stack">
+		<div class="stack-row"><span class="label">Language</span><span class="value">Java 21</span></div>
+		<div class="stack-row"><span class="label">API</span><span class="value">Paper API 1.21.4</span></div>
+		<div class="stack-row"><span class="label">Build</span><span class="value">Maven 3.x</span></div>
+		<div class="stack-row"><span class="label">Output</span><span class="value">Single self-contained JAR — no extra dependencies</span></div>
+		<div class="stack-row"><span class="label">AI tooling</span><span class="value">Claude Code (Anthropic)</span></div>
+	</div>
+
+	<h2>Iteration in the Real World</h2>
+
+	<p>The spec got the plugin <em>building</em>, but reality pushed back immediately. Ben sent photos of his crafting screen — and the recipes were completely wrong. The original code had simple 3-item patterns; Ben's photos showed all nine crafting slots filled with rare ingredients. Player Heads in every corner. Netherite Ingots. Breeze Rods. Heavy Cores.</p>
+
+	<blockquote>"The spec got the plugin building, but the photos showed what Ben actually wanted."</blockquote>
+
+	<p>This back-and-forth — spec → build → photos → correction → rebuild — is exactly the kind of loop Claude Code handles well. Each change was a targeted edit to <a href="https://github.com/hypo321/ben-weapons/blob/main/ben-weapons/src/main/java/com/benserver/weapons/items/CustomWeapons.java">CustomWeapons.java</a>: update the <code>registerRecipes()</code> method, rebuild, done. No scaffolding, no ceremony.</p>
+
+	<p>Cooldowns were tuned the same way — a one-line request ("mace: 15, sword: 30, axe: 25") touched four files simultaneously: the cooldown logic in <a href="https://github.com/hypo321/ben-weapons/blob/main/ben-weapons/src/main/java/com/benserver/weapons/managers/CooldownManager.java">CooldownManager.java</a>, the item lore, the player activation messages in <a href="https://github.com/hypo321/ben-weapons/blob/main/ben-weapons/src/main/java/com/benserver/weapons/listeners/WeaponAbilityListener.java">WeaponAbilityListener.java</a>, and the spec — all in one pass.</p>
+
+	<h2>What Got Built</h2>
+
+	<p>By v1.4.0, the plugin had grown well beyond its original scope. Three weapons, each with a distinct trigger and feel:</p>
+
+	<div class="feature-grid">
+		<div class="feature-card">
+			<div class="icon">⚔</div>
+			<h4>Fire Blitz Sword</h4>
+			<p>Activated via <code>/sword ability activate</code>. Launches a fireball. Passive fire resistance.</p>
+		</div>
+		<div class="feature-card">
+			<div class="icon">⚡</div>
+			<h4>Lightning Axe</h4>
+			<p>Auto-triggers on hit. No button press — just swing and lightning falls. Grants Regen II.</p>
+		</div>
+		<div class="feature-card">
+			<div class="icon">💨</div>
+			<h4>Dash Mace</h4>
+			<p>Bound to the F key. Launches you ~30 blocks forward. Passive Speed II.</p>
+		</div>
+	</div>
+
+	<p>Supporting systems made it genuinely server-ready:</p>
+
+	<div class="feature-grid">
+		<div class="feature-card">
+			<div class="icon">🤝</div>
+			<h4>Trust system</h4>
+			<p><code>/trust</code> and <code>/untrust</code> — weapons won't harm trusted players. Persists across restarts.</p>
+		</div>
+		<div class="feature-card">
+			<div class="icon">🔒</div>
+			<h4>One-per-server craft limit</h4>
+			<p>Each weapon can only be crafted once, server-wide. Tracked in <code>crafted.yml</code>.</p>
+		</div>
+		<div class="feature-card">
+			<div class="icon">🗄</div>
+			<h4>Container lock</h4>
+			<p>Custom weapons can't be stashed in chests, hoppers, or dispensers.</p>
+		</div>
+		<div class="feature-card">
+			<div class="icon">📋</div>
+			<h4>Version command</h4>
+			<p><code>/benweapons version</code> works from console — useful for confirming the right JAR is loaded.</p>
+		</div>
+	</div>
+
+	<h2>The Collaborative Pattern</h2>
+
+	<p>What made this work wasn't any single clever prompt — it was the tight loop between human judgement and execution speed. Ben knew what he wanted the weapons to <em>feel</em> like. Claude Code knew how to turn that into <code>ShapedRecipe</code> calls and <code>PotionEffectType</code> constants without looking anything up.</p>
+
+	<p>The spec file served as a shared contract. When requirements changed, updating the spec and the code in the same pass kept them from drifting apart. The JAR was always a <code>mvn clean package</code> away.</p>
+
+	<blockquote>Total time from empty directory to shipping plugin: one afternoon.</blockquote>
+
+	<p>The final <a href="https://github.com/hypo321/ben-weapons/releases/latest/download/BenWeapons.jar">BenWeapons.jar</a> weighs 16KB. For Ben's players, it's three weapons unlike anything in vanilla Minecraft. For the rest of us, it's a decent illustration of what human-AI pair programming looks like when it's working.</p>
+
+	<hr>
+
+	<p style="font-size:0.88rem;">
+		<a href="https://github.com/hypo321/ben-weapons">View the full source on GitHub →</a>
+		&nbsp;·&nbsp;
+		<a href="index.html">Back to the plugin page →</a>
+	</p>
+
+</div>
+
+<footer>
+	<p>Made with ❤️ for Ben's server &nbsp;·&nbsp; <a href="https://github.com/hypo321/ben-weapons">View on GitHub</a></p>
+</footer>
+
+</body>
+</html>
