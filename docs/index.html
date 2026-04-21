@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Ben's Custom Weapons — Minecraft Plugin</title>
+	<style>
+		:root {
+			--bg: #0f1117;
+			--surface: #1a1d27;
+			--card: #20243a;
+			--border: #2e3352;
+			--text: #e2e8f0;
+			--muted: #94a3b8;
+			--fire: #f97316;
+			--lightning: #38bdf8;
+			--dash: #c084fc;
+			--gold: #fbbf24;
+			--green: #4ade80;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+
+		body {
+			font-family: 'Segoe UI', system-ui, sans-serif;
+			background: var(--bg);
+			color: var(--text);
+			line-height: 1.6;
+		}
+
+		/* ── HERO ── */
+		.hero {
+			background: linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #12172a 100%);
+			border-bottom: 1px solid var(--border);
+			padding: 80px 20px 60px;
+			text-align: center;
+		}
+
+		.hero h1 {
+			font-size: clamp(2rem, 5vw, 3.5rem);
+			font-weight: 800;
+			letter-spacing: -0.02em;
+			background: linear-gradient(90deg, var(--fire), var(--lightning), var(--dash));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			margin-bottom: 16px;
+		}
+
+		.hero p {
+			font-size: 1.15rem;
+			color: var(--muted);
+			max-width: 520px;
+			margin: 0 auto 32px;
+		}
+
+		.badge-row {
+			display: flex;
+			gap: 10px;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin-bottom: 36px;
+		}
+
+		.badge {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 999px;
+			padding: 6px 14px;
+			font-size: 0.8rem;
+			color: var(--muted);
+			font-weight: 500;
+		}
+
+		.btn {
+			display: inline-block;
+			background: linear-gradient(135deg, var(--fire), #dc2626);
+			color: #fff;
+			font-weight: 700;
+			text-decoration: none;
+			padding: 14px 32px;
+			border-radius: 10px;
+			font-size: 1rem;
+			transition: opacity 0.2s, transform 0.2s;
+			margin: 0 8px;
+		}
+
+		.btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+		.btn.secondary {
+			background: var(--card);
+			border: 1px solid var(--border);
+			color: var(--text);
+		}
+
+		/* ── LAYOUT ── */
+		.container {
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		section {
+			padding: 60px 0;
+			border-bottom: 1px solid var(--border);
+		}
+
+		section:last-of-type { border-bottom: none; }
+
+		h2 {
+			font-size: 1.75rem;
+			font-weight: 700;
+			margin-bottom: 32px;
+			color: var(--text);
+		}
+
+		/* ── WEAPONS GRID ── */
+		.weapons-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: 20px;
+		}
+
+		.weapon-card {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 14px;
+			padding: 28px 24px;
+			transition: transform 0.2s, border-color 0.2s;
+		}
+
+		.weapon-card:hover { transform: translateY(-3px); }
+
+		.weapon-card.fire  { border-color: var(--fire); }
+		.weapon-card.lightning { border-color: var(--lightning); }
+		.weapon-card.dash  { border-color: var(--dash); }
+
+		.weapon-icon {
+			font-size: 2.5rem;
+			margin-bottom: 12px;
+		}
+
+		.weapon-card h3 {
+			font-size: 1.15rem;
+			font-weight: 700;
+			margin-bottom: 8px;
+		}
+
+		.weapon-card.fire h3       { color: var(--fire); }
+		.weapon-card.lightning h3  { color: var(--lightning); }
+		.weapon-card.dash h3       { color: var(--dash); }
+
+		.weapon-card p {
+			color: var(--muted);
+			font-size: 0.92rem;
+			margin-bottom: 16px;
+		}
+
+		.tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+		.tag {
+			font-size: 0.75rem;
+			font-weight: 600;
+			border-radius: 6px;
+			padding: 3px 10px;
+			background: rgba(255,255,255,0.06);
+			color: var(--muted);
+		}
+
+		.tag.ability  { background: rgba(251,191,36,0.12); color: var(--gold); }
+		.tag.passive  { background: rgba(74,222,128,0.12); color: var(--green); }
+		.tag.cooldown { background: rgba(148,163,184,0.10); color: var(--muted); }
+
+		/* ── CRAFTING RECIPES ── */
+		.recipe-block {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 14px;
+			padding: 28px 24px;
+			margin-bottom: 20px;
+		}
+
+		.recipe-block h3 {
+			font-size: 1.05rem;
+			font-weight: 700;
+			margin-bottom: 18px;
+		}
+
+		.recipe-block.fire h3       { color: var(--fire); }
+		.recipe-block.lightning h3  { color: var(--lightning); }
+		.recipe-block.dash h3       { color: var(--dash); }
+
+		.grid-3x3 {
+			display: inline-grid;
+			grid-template-columns: repeat(3, 56px);
+			gap: 5px;
+			margin-bottom: 16px;
+		}
+
+		.cell {
+			width: 56px;
+			height: 56px;
+			background: #2a2f47;
+			border: 2px solid #3a3f5e;
+			border-radius: 7px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 0.65rem;
+			color: var(--muted);
+			text-align: center;
+			font-weight: 600;
+			line-height: 1.2;
+			padding: 3px;
+		}
+
+		.cell.highlight {
+			border-color: #6b7280;
+			color: var(--text);
+			background: #31364f;
+		}
+
+		.cell.empty { background: #1a1d27; border-color: #252840; color: transparent; }
+
+		.recipe-legend {
+			font-size: 0.82rem;
+			color: var(--muted);
+			margin-top: 4px;
+		}
+
+		.recipe-legend span { color: var(--text); font-weight: 600; }
+
+		/* ── INSTALL STEPS ── */
+		.steps { display: flex; flex-direction: column; gap: 16px; }
+
+		.step {
+			display: flex;
+			gap: 18px;
+			align-items: flex-start;
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 20px 22px;
+		}
+
+		.step-num {
+			flex-shrink: 0;
+			width: 34px;
+			height: 34px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, var(--fire), #dc2626);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 800;
+			font-size: 0.9rem;
+			color: #fff;
+		}
+
+		.step-body h4 { font-size: 0.97rem; font-weight: 700; margin-bottom: 4px; }
+		.step-body p  { font-size: 0.88rem; color: var(--muted); }
+
+		/* ── COMMAND ── */
+		.code-block {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			padding: 16px 20px;
+			font-family: 'Courier New', monospace;
+			font-size: 0.92rem;
+			color: var(--gold);
+			margin: 12px 0;
+		}
+
+		.info-box {
+			background: rgba(56,189,248,0.07);
+			border: 1px solid rgba(56,189,248,0.2);
+			border-radius: 10px;
+			padding: 14px 18px;
+			font-size: 0.88rem;
+			color: var(--lightning);
+			margin-top: 12px;
+		}
+
+		/* ── FOOTER ── */
+		footer {
+			text-align: center;
+			padding: 40px 20px;
+			color: var(--muted);
+			font-size: 0.85rem;
+			border-top: 1px solid var(--border);
+		}
+
+		footer a { color: var(--fire); text-decoration: none; }
+		footer a:hover { text-decoration: underline; }
+
+		@media (max-width: 600px) {
+			.grid-3x3 { grid-template-columns: repeat(3, 48px); }
+			.cell { width: 48px; height: 48px; font-size: 0.58rem; }
+		}
+	</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+	<div class="container">
+		<h1>⚔ Ben's Custom Weapons</h1>
+		<p>Three craftable custom weapons for Paper 1.21.4 — exclusive perks for players on Ben's server.</p>
+		<div class="badge-row">
+			<span class="badge">Paper 1.21.4+</span>
+			<span class="badge">Java 21+</span>
+			<span class="badge">3 Weapons</span>
+			<span class="badge">Craftable in-game</span>
+		</div>
+		<a href="https://github.com/hypo321/ben-weapons/releases/latest" class="btn">⬇ Download .jar</a>
+		<a href="https://github.com/hypo321/ben-weapons" class="btn secondary">GitHub →</a>
+	</div>
+</div>
+
+<!-- ── WEAPONS ── -->
+<section>
+	<div class="container">
+		<h2>The Three Weapons</h2>
+		<div class="weapons-grid">
+
+			<div class="weapon-card fire">
+				<div class="weapon-icon">⚔</div>
+				<h3>Fire Blitz Sword</h3>
+				<p>An iron sword imbued with blaze energy. Right-click to launch a powerful fireball in the direction you're looking.</p>
+				<div class="tag-row">
+					<span class="tag ability">🔥 Launches fireball</span>
+					<span class="tag cooldown">⏳ 40s cooldown</span>
+					<span class="tag passive">🛡 Fire Resistance (passive)</span>
+				</div>
+			</div>
+
+			<div class="weapon-card lightning">
+				<div class="weapon-icon">⚡</div>
+				<h3>Lightning Axe</h3>
+				<p>A gold-tipped iron axe crackling with storm energy. Right-click to call down a lightning bolt on your target and reward yourself with rapid regeneration.</p>
+				<div class="tag-row">
+					<span class="tag ability">⚡ Strikes lightning</span>
+					<span class="tag cooldown">⏳ 40s cooldown</span>
+					<span class="tag passive">💚 Regen II for 20s (on use)</span>
+				</div>
+			</div>
+
+			<div class="weapon-card dash">
+				<div class="weapon-icon">💨</div>
+				<h3>Dash Mace</h3>
+				<p>A mace bound with ender energy. Right-click to launch yourself ~20 blocks forward at high speed — perfect for escaping danger or closing the gap.</p>
+				<div class="tag-row">
+					<span class="tag ability">💨 Dashes ~20 blocks</span>
+					<span class="tag cooldown">⏳ 30s cooldown</span>
+					<span class="tag passive">🏃 Speed II (passive)</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<!-- ── CRAFTING ── -->
+<section>
+	<div class="container">
+		<h2>Crafting Recipes</h2>
+
+		<!-- Fire Blitz Sword -->
+		<div class="recipe-block fire">
+			<h3>⚔ Fire Blitz Sword</h3>
+			<div class="grid-3x3">
+				<div class="cell empty"></div>
+				<div class="cell highlight">Blaze<br>Rod</div>
+				<div class="cell empty"></div>
+				<div class="cell highlight">Fire<br>Charge</div>
+				<div class="cell highlight">Iron<br>Sword</div>
+				<div class="cell highlight">Fire<br>Charge</div>
+				<div class="cell empty"></div>
+				<div class="cell highlight">Blaze<br>Rod</div>
+				<div class="cell empty"></div>
+			</div>
+			<p class="recipe-legend">
+				<span>2×</span> Blaze Rod &nbsp;·&nbsp;
+				<span>2×</span> Fire Charge &nbsp;·&nbsp;
+				<span>1×</span> Iron Sword
+			</p>
+		</div>
+
+		<!-- Lightning Axe -->
+		<div class="recipe-block lightning">
+			<h3>⚡ Lightning Axe</h3>
+			<div class="grid-3x3">
+				<div class="cell highlight">Gold<br>Ingot</div>
+				<div class="cell highlight">Gold<br>Ingot</div>
+				<div class="cell empty"></div>
+				<div class="cell highlight">Gold<br>Ingot</div>
+				<div class="cell highlight">Iron<br>Axe</div>
+				<div class="cell empty"></div>
+				<div class="cell empty"></div>
+				<div class="cell highlight">Blaze<br>Rod</div>
+				<div class="cell empty"></div>
+			</div>
+			<p class="recipe-legend">
+				<span>3×</span> Gold Ingot &nbsp;·&nbsp;
+				<span>1×</span> Iron Axe &nbsp;·&nbsp;
+				<span>1×</span> Blaze Rod
+			</p>
+		</div>
+
+		<!-- Dash Mace -->
+		<div class="recipe-block dash">
+			<h3>💨 Dash Mace</h3>
+			<div class="grid-3x3">
+				<div class="cell highlight">Ender<br>Pearl</div>
+				<div class="cell empty"></div>
+				<div class="cell highlight">Ender<br>Pearl</div>
+				<div class="cell empty"></div>
+				<div class="cell highlight">Mace</div>
+				<div class="cell empty"></div>
+				<div class="cell highlight">Ender<br>Pearl</div>
+				<div class="cell empty"></div>
+				<div class="cell highlight">Ender<br>Pearl</div>
+			</div>
+			<p class="recipe-legend">
+				<span>4×</span> Ender Pearl &nbsp;·&nbsp;
+				<span>1×</span> Mace
+			</p>
+		</div>
+
+	</div>
+</section>
+
+<!-- ── INSTALL ── -->
+<section>
+	<div class="container">
+		<h2>Installation</h2>
+		<div class="steps">
+			<div class="step">
+				<div class="step-num">1</div>
+				<div class="step-body">
+					<h4>Download the plugin</h4>
+					<p>Grab the latest <code>BenWeapons.jar</code> from the <a href="https://github.com/hypo321/ben-weapons/releases/latest" style="color:var(--fire);">Releases page</a>.</p>
+				</div>
+			</div>
+			<div class="step">
+				<div class="step-num">2</div>
+				<div class="step-body">
+					<h4>Upload to your server</h4>
+					<p>Drop <code>BenWeapons.jar</code> into your server's <code>plugins/</code> folder via FTP, SFTP, or your hosting panel's file manager.</p>
+				</div>
+			</div>
+			<div class="step">
+				<div class="step-num">3</div>
+				<div class="step-body">
+					<h4>Restart the server</h4>
+					<p>A full restart (not reload) is recommended. You'll see a confirmation in the console when the plugin loads.</p>
+				</div>
+			</div>
+			<div class="step">
+				<div class="step-num">4</div>
+				<div class="step-body">
+					<h4>Craft away!</h4>
+					<p>All three weapons appear in the in-game recipe book automatically. No additional configuration required.</p>
+				</div>
+			</div>
+		</div>
+		<div class="info-box">
+			<strong>Requirements:</strong> Paper 1.21.4+ &nbsp;·&nbsp; Java 21+
+		</div>
+	</div>
+</section>
+
+<!-- ── ADMIN COMMAND ── -->
+<section>
+	<div class="container">
+		<h2>Admin Command</h2>
+		<p style="color:var(--muted); margin-bottom:16px;">Give a weapon directly to any online player. Requires OP (or the <code>benweapons.give</code> permission).</p>
+		<div class="code-block">/benweapons &lt;sword|axe|mace&gt; [player]</div>
+		<p style="color:var(--muted); font-size:0.88rem; margin-top:12px;">
+			Omit <code>[player]</code> to give the weapon to yourself.
+			Examples: <code>/benweapons sword</code> · <code>/benweapons axe Steve</code>
+		</p>
+	</div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+	<p>Made with ❤️ for Ben's server &nbsp;·&nbsp; <a href="https://github.com/hypo321/ben-weapons">View on GitHub</a></p>
+</footer>
+
+</body>
+</html>
