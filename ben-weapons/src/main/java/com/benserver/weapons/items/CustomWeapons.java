@@ -32,7 +32,7 @@ public class CustomWeapons {
 
         meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "⚔ Fire Blitz Sword");
         meta.setLore(Arrays.asList(
-            ChatColor.GOLD + "Use /sword ability activate to unleash a fireball!",
+            ChatColor.GOLD + "Use /bsword ability activate to unleash a fireball!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "30 seconds",
             "",
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Fire Resistance (always active)"
