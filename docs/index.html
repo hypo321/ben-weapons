@@ -346,9 +346,9 @@
 			<div class="weapon-card fire">
 				<div class="weapon-icon">⚔</div>
 				<h3>Fire Blitz Sword</h3>
-				<p>An iron sword imbued with blaze energy. Right-click to launch a powerful fireball in the direction you're looking.</p>
+				<p>An iron sword imbued with blaze energy. Type <code>/sword ability activate</code> while holding it to launch a powerful fireball in the direction you're looking.</p>
 				<div class="tag-row">
-					<span class="tag ability">🔥 Launches fireball</span>
+					<span class="tag ability">🔥 /sword ability activate</span>
 					<span class="tag cooldown">⏳ 30s cooldown</span>
 					<span class="tag passive">🛡 Fire Resistance (passive)</span>
 				</div>
@@ -357,22 +357,23 @@
 			<div class="weapon-card lightning">
 				<div class="weapon-icon">⚡</div>
 				<h3>Lightning Axe</h3>
-				<p>A gold-tipped axe crackling with storm energy. Right-click to call down a lightning bolt on your target and reward yourself with rapid regeneration.</p>
+				<p>A gold-tipped axe crackling with storm energy. <strong>Automatically</strong> calls down a lightning bolt on your target every time you land a hit — no button press needed.</p>
 				<div class="tag-row">
-					<span class="tag ability">⚡ Strikes lightning</span>
+					<span class="tag ability">⚡ Auto-strikes on hit</span>
 					<span class="tag cooldown">⏳ 25s cooldown</span>
-					<span class="tag passive">💚 Regen II for 20s (on use)</span>
+					<span class="tag passive">💚 Regen II for 20s (on proc)</span>
 				</div>
 			</div>
 
 			<div class="weapon-card dash">
 				<div class="weapon-icon">💨</div>
 				<h3>Dash Mace</h3>
-				<p>A mace bound with breeze and echo energy. Right-click to launch yourself ~20 blocks forward at high speed — perfect for escaping danger or closing the gap.</p>
+				<p>A mace bound with breeze and echo energy. Press <strong>F (swap-hands)</strong> to launch yourself ~20 blocks forward. Comes pre-enchanted with Density V and Breach IV.</p>
 				<div class="tag-row">
-					<span class="tag ability">💨 Dashes ~20 blocks</span>
+					<span class="tag ability">💨 F key to dash</span>
 					<span class="tag cooldown">⏳ 15s cooldown</span>
 					<span class="tag passive">🏃 Speed II (passive)</span>
+					<span class="tag passive">⚒ Density V + Breach IV</span>
 				</div>
 			</div>
 
@@ -496,16 +497,36 @@
 	</div>
 </section>
 
-<!-- ── ADMIN COMMAND ── -->
+<!-- ── COMMANDS ── -->
 <section>
 	<div class="container">
-		<h2>Admin Command</h2>
-		<p style="color:var(--muted); margin-bottom:16px;">Give a weapon directly to any online player. Requires OP (or the <code>benweapons.give</code> permission).</p>
-		<div class="code-block">/benweapons &lt;sword|axe|mace&gt; [player]</div>
-		<p style="color:var(--muted); font-size:0.88rem; margin-top:12px;">
-			Omit <code>[player]</code> to give the weapon to yourself.
-			Examples: <code>/benweapons sword</code> · <code>/benweapons axe Steve</code>
-		</p>
+		<h2>Commands</h2>
+
+		<p style="color:var(--muted); margin-bottom:20px; font-size:0.92rem;">All players can use the ability and trust commands. The give command requires OP.</p>
+
+		<div style="display:flex; flex-direction:column; gap:12px;">
+
+			<div style="background:var(--card); border:1px solid var(--border); border-left:3px solid var(--fire); border-radius:10px; padding:16px 20px;">
+				<div class="code-block" style="margin:0 0 6px;">/sword ability activate</div>
+				<p style="color:var(--muted); font-size:0.85rem;">Activate the Fire Blitz Sword — must be holding it in your main hand.</p>
+			</div>
+
+			<div style="background:var(--card); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:10px; padding:16px 20px;">
+				<div class="code-block" style="margin:0 0 6px;">/trust &lt;player&gt;</div>
+				<p style="color:var(--muted); font-size:0.85rem;">Your weapons will no longer harm this player. Both players receive a notification. Trust persists across restarts.</p>
+			</div>
+
+			<div style="background:var(--card); border:1px solid var(--border); border-left:3px solid var(--gold); border-radius:10px; padding:16px 20px;">
+				<div class="code-block" style="margin:0 0 6px;">/untrust &lt;player&gt;</div>
+				<p style="color:var(--muted); font-size:0.85rem;">Revoke trust — your weapons can harm them again.</p>
+			</div>
+
+			<div style="background:var(--card); border:1px solid var(--border); border-left:3px solid var(--lightning); border-radius:10px; padding:16px 20px;">
+				<div class="code-block" style="margin:0 0 6px;">/benweapons &lt;sword|axe|mace&gt; [player]</div>
+				<p style="color:var(--muted); font-size:0.85rem;">Give a custom weapon to yourself or another player. <strong style="color:var(--lightning)">Requires OP</strong> (or <code>benweapons.give</code> permission). Omit <code>[player]</code> to give to yourself.</p>
+			</div>
+
+		</div>
 	</div>
 </section>
 
