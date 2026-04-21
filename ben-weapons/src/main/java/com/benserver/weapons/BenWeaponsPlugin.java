@@ -31,7 +31,7 @@ public class BenWeaponsPlugin extends JavaPlugin {
 
         new PassiveEffectsTask(customWeapons).runTaskTimer(this, 0L, 20L);
 
-        getCommand("benweapons").setExecutor(new WeaponsCommand(customWeapons));
+        getCommand("benweapons").setExecutor(new WeaponsCommand(customWeapons, this));
         getCommand("sword").setExecutor(new SwordCommand(customWeapons, cooldownManager, abilityListener));
         TrustCommand trustCmd   = new TrustCommand(trustManager, true);
         TrustCommand untrustCmd = new TrustCommand(trustManager, false);

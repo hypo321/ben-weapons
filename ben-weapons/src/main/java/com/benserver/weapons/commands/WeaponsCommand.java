@@ -6,17 +6,27 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class WeaponsCommand implements CommandExecutor {
 
     private final CustomWeapons customWeapons;
+    private final JavaPlugin plugin;
 
-    public WeaponsCommand(CustomWeapons customWeapons) {
+    public WeaponsCommand(CustomWeapons customWeapons, JavaPlugin plugin) {
         this.customWeapons = customWeapons;
+        this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // /benweapons version — available to everyone, works from console too
+        if (args.length == 1 && args[0].equalsIgnoreCase("version")) {
+            String version = plugin.getDescription().getVersion();
+            sender.sendMessage(ChatColor.GOLD + "BenWeapons" + ChatColor.GRAY + " v" + ChatColor.WHITE + version);
+            return true;
+        }
+
         if (!(sender instanceof Player senderPlayer)) {
             sender.sendMessage("Run this command in-game.");
             return true;
@@ -26,7 +36,7 @@ public class WeaponsCommand implements CommandExecutor {
             return true;
         }
         if (args.length == 0) {
-            senderPlayer.sendMessage(ChatColor.GOLD + "Usage: /benweapons <sword|axe|mace> [player]");
+            senderPlayer.sendMessage(ChatColor.GOLD + "Usage: /benweapons <sword|axe|mace|version> [player]");
             return true;
         }
 
