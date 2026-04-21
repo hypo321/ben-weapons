@@ -27,7 +27,7 @@ public class CustomWeapons {
     }
 
     public ItemStack createFireBlitzSword() {
-        ItemStack item = new ItemStack(Material.IRON_SWORD);
+        ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
         ItemMeta meta = item.getItemMeta();
 
         meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "⚔ Fire Blitz Sword");
@@ -49,7 +49,7 @@ public class CustomWeapons {
     }
 
     public ItemStack createLightningAxe() {
-        ItemStack item = new ItemStack(Material.IRON_AXE);
+        ItemStack item = new ItemStack(Material.NETHERITE_AXE);
         ItemMeta meta = item.getItemMeta();
 
         meta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "⚡ Lightning Axe");
