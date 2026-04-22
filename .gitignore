@@ -1,3 +1,4 @@
 ben-weapons/target/
 *.class
 server/
+.DS_Store
