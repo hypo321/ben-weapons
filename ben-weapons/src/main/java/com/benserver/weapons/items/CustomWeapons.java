@@ -42,6 +42,7 @@ public class CustomWeapons {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        meta.setCustomModelData(1001);
         meta.getPersistentDataContainer().set(weaponKey, PersistentDataType.STRING, FIRE_SWORD_ID);
 
         item.setItemMeta(meta);
@@ -64,6 +65,7 @@ public class CustomWeapons {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        meta.setCustomModelData(1002);
         meta.getPersistentDataContainer().set(weaponKey, PersistentDataType.STRING, LIGHTNING_AXE_ID);
 
         item.setItemMeta(meta);
@@ -88,6 +90,7 @@ public class CustomWeapons {
         // Enchants intentionally visible so players can see Density V and Breach IV
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        meta.setCustomModelData(1003);
         meta.getPersistentDataContainer().set(weaponKey, PersistentDataType.STRING, DASH_MACE_ID);
 
         item.setItemMeta(meta);

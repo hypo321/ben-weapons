@@ -35,10 +35,18 @@ jobs:
         run: |
           unzip -p ben-weapons/target/BenWeapons.jar plugin.yml | grep "^version"
 
+      - name: Package resource pack
+        run: |
+          cd resourcepack
+          zip -r ../BenWeapons-ResourcePack.zip .
+          cd ..
+
       - name: Create GitHub Release
         run: |
           cp -f ben-weapons/target/BenWeapons.jar BenWeapons.jar
-          gh release create "v${{ steps.version.outputs.version }}" BenWeapons.jar \
+          gh release create "v${{ steps.version.outputs.version }}" \
+            BenWeapons.jar \
+            BenWeapons-ResourcePack.zip \
             --title "BenWeapons v${{ steps.version.outputs.version }}" \
             --generate-notes
         env:
