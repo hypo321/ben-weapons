@@ -11,7 +11,7 @@ commands:
     usage: /benweapons <sword|axe|mace> [player]
     permission: benweapons.give
   sword:
-    description: Activate the Fire Blitz Sword ability
+    description: Activate the Forbidden Sword ability
     usage: /sword ability activate
     permission: benweapons.sword
   trust:

@@ -83,7 +83,7 @@ public class WeaponAbilityListener implements Listener {
 
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0f, 0.8f);
         player.getWorld().spawnParticle(Particle.FLAME, eye, 20, 0.2, 0.2, 0.2, 0.05);
-        player.sendMessage(ChatColor.RED + "🔥 Fire Blitz! " + ChatColor.GRAY + "(30s cooldown)");
+        player.sendMessage(ChatColor.RED + "🔥 Forbidden Sword! " + ChatColor.GRAY + "(30s cooldown)");
     }
 
     private void activateLightningStrike(Player player) {

@@ -30,7 +30,7 @@ public class CustomWeapons {
         ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "⚔ Fire Blitz Sword");
+        meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "⚔ Forbidden Sword");
         meta.setLore(Arrays.asList(
             ChatColor.GOLD + "Use /sword ability activate to unleash a fireball!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "30 seconds",
@@ -52,7 +52,7 @@ public class CustomWeapons {
         ItemStack item = new ItemStack(Material.NETHERITE_AXE);
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "⚡ Lightning Axe");
+        meta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "⚡ Forbidden Axe");
         meta.setLore(Arrays.asList(
             ChatColor.AQUA + "Auto-strikes lightning on hit when off cooldown!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "25 seconds",
@@ -74,7 +74,7 @@ public class CustomWeapons {
         ItemStack item = new ItemStack(Material.MACE);
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "💨 Dash Mace");
+        meta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "💨 Forbidden Mace");
         meta.setLore(Arrays.asList(
             ChatColor.LIGHT_PURPLE + "Press F (off-hand) to dash 20 blocks forward!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "15 seconds",

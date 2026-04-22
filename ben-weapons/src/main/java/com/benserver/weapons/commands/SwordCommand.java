@@ -37,7 +37,7 @@ public class SwordCommand implements CommandExecutor {
 
         String weaponType = customWeapons.getWeaponType(player.getInventory().getItemInMainHand());
         if (!CustomWeapons.FIRE_SWORD_ID.equals(weaponType)) {
-            player.sendMessage(ChatColor.RED + "You must be holding the Fire Blitz Sword!");
+            player.sendMessage(ChatColor.RED + "You must be holding the Forbidden Sword!");
             return true;
         }
 

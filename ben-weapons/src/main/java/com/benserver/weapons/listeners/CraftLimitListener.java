@@ -48,17 +48,17 @@ public class CraftLimitListener implements Listener {
         switch (weaponType) {
             case CustomWeapons.FIRE_SWORD_ID -> {
                 title = ChatColor.RED + "" + ChatColor.BOLD
-                    + "⚔ " + crafter.getName() + " has forged the Fire Blitz Sword!";
+                    + "⚔ " + crafter.getName() + " has forged the Forbidden Sword!";
                 sound = Sound.ENTITY_BLAZE_SHOOT;
             }
             case CustomWeapons.LIGHTNING_AXE_ID -> {
                 title = ChatColor.AQUA + "" + ChatColor.BOLD
-                    + "⚡ " + crafter.getName() + " has forged the Lightning Axe!";
+                    + "⚡ " + crafter.getName() + " has forged the Forbidden Axe!";
                 sound = Sound.ENTITY_LIGHTNING_BOLT_THUNDER;
             }
             case CustomWeapons.DASH_MACE_ID -> {
                 title = ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD
-                    + "💨 " + crafter.getName() + " has forged the Dash Mace!";
+                    + "💨 " + crafter.getName() + " has forged the Forbidden Mace!";
                 sound = Sound.ENTITY_ENDER_PEARL_THROW;
             }
             default -> { return; }
