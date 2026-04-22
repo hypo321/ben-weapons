@@ -10,15 +10,15 @@ A [Paper](https://papermc.io/) Minecraft server plugin that adds **three craftab
 
 | Weapon | Ability (right-click) | Cooldown | Passive |
 |--------|----------------------|----------|---------|
-| ⚔ **Fire Blitz Sword** | Launches a fireball | 30s | Fire Resistance (always active) |
-| ⚡ **Lightning Axe** | Strikes lightning + grants Regen II for 20s | 25s | None |
-| 💨 **Dash Mace** | Dashes ~20 blocks forward | 15s | Speed II (always active) |
+| ⚔ **Forbidden Sword** | Launches a fireball | 30s | Fire Resistance (always active) |
+| ⚡ **Forbidden Axe** | Strikes lightning + grants Regen II for 20s | 25s | None |
+| 💨 **Forbidden Mace** | Dashes ~30 blocks forward | 15s | Speed II (always active) |
 
 ---
 
 ## Crafting Recipes
 
-### ⚔ Fire Blitz Sword
+### ⚔ Forbidden Sword
 
 ```
 [Player Head]  [Netherite Ingot] [Player Head]
@@ -26,7 +26,7 @@ A [Paper](https://papermc.io/) Minecraft server plugin that adds **three craftab
 [Player Head]  [Blaze Rod]       [Player Head]
 ```
 
-### ⚡ Lightning Axe
+### ⚡ Forbidden Axe
 
 ```
 [Player Head] [Netherite Axe] [Player Head]
@@ -34,7 +34,7 @@ A [Paper](https://papermc.io/) Minecraft server plugin that adds **three craftab
 [Player Head] [Lightning Rod] [Player Head]
 ```
 
-### 💨 Dash Mace
+### 💨 Forbidden Mace
 
 ```
 [Player Head]    [Heavy Core]      [Player Head]
