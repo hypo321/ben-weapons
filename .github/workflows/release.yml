@@ -26,25 +26,32 @@ jobs:
           VERSION="${BASE}.${{ github.run_number }}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Build JAR
-        run: |
-          mvn clean package -q -f ben-weapons/pom.xml \
-            -Dbuild.number=${{ github.run_number }}
-
-      - name: Verify version in JAR
-        run: |
-          unzip -p ben-weapons/target/BenWeapons.jar plugin.yml | grep "^version"
-
       - name: Package resource pack
         run: |
           cd resourcepack
           zip -r ../BenWeapons-ResourcePack.zip .
           cd ..
 
+      - name: Calculate resource pack SHA-1
+        id: rp_sha1
+        run: |
+          SHA1=$(sha1sum BenWeapons-ResourcePack.zip | awk '{print $1}')
+          echo "sha1=$SHA1" >> $GITHUB_OUTPUT
+
+      - name: Build JAR
+        run: |
+          mvn clean package -q -f ben-weapons/pom.xml \
+            -Dbuild.number=${{ github.run_number }} \
+            -Dresource.pack.sha1=${{ steps.rp_sha1.outputs.sha1 }}
+
+      - name: Verify version and SHA-1 in JAR
+        run: |
+          unzip -p ben-weapons/target/BenWeapons.jar plugin.yml | grep -E "^version|^resource-pack-sha1"
+
       - name: Create GitHub Release
         run: |
           cp -f ben-weapons/target/BenWeapons.jar BenWeapons.jar
-          SHA1=$(sha1sum BenWeapons-ResourcePack.zip | awk '{print $1}')
+          SHA1=${{ steps.rp_sha1.outputs.sha1 }}
           gh release create "v${{ steps.version.outputs.version }}" \
             BenWeapons.jar \
             BenWeapons-ResourcePack.zip \

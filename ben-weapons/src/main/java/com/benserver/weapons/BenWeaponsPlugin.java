@@ -36,6 +36,8 @@ public class BenWeaponsPlugin extends JavaPlugin {
 
         new PassiveEffectsTask(customWeapons).runTaskTimer(this, 0L, 20L);
 
+        registerResourcePackListener();
+
         getCommand("benweapons").setExecutor(new WeaponsCommand(customWeapons, this));
         getCommand("sword").setExecutor(new SwordCommand(customWeapons, cooldownManager, abilityListener));
         TrustCommand trustCmd   = new TrustCommand(trustManager, true);
@@ -47,9 +49,9 @@ public class BenWeaponsPlugin extends JavaPlugin {
 
         getLogger().info("╔══════════════════════════════════════╗");
         getLogger().info("║   Ben's Custom Weapons — Loaded!     ║");
-        getLogger().info("║   Fire Blitz Sword  ✓                ║");
-        getLogger().info("║   Lightning Axe     ✓                ║");
-        getLogger().info("║   Dash Mace         ✓                ║");
+        getLogger().info("║   Forbidden Sword   ✓                ║");
+        getLogger().info("║   Forbidden Axe     ✓                ║");
+        getLogger().info("║   Forbidden Mace    ✓                ║");
         getLogger().info("╚══════════════════════════════════════╝");
     }
 
@@ -62,4 +64,37 @@ public class BenWeaponsPlugin extends JavaPlugin {
 
     public CooldownManager getCooldownManager() { return cooldownManager; }
     public CustomWeapons getCustomWeapons() { return customWeapons; }
+
+    private void registerResourcePackListener() {
+        String sha1;
+        try (var in = getResource("plugin.yml")) {
+            if (in == null) return;
+            org.bukkit.configuration.file.YamlConfiguration yml =
+                org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(
+                    new java.io.InputStreamReader(in));
+            sha1 = yml.getString("resource-pack-sha1", "");
+        } catch (Exception e) {
+            getLogger().warning("Could not read resource-pack-sha1: " + e.getMessage());
+            return;
+        }
+
+        if (sha1.isEmpty() || sha1.startsWith("${")) {
+            getLogger().info("Resource pack SHA-1 not embedded — skipping auto resource pack.");
+            return;
+        }
+
+        final String finalSha1 = sha1;
+        final String url = "https://github.com/hypo321/ben-weapons/releases/latest/download/BenWeapons-ResourcePack.zip";
+        final net.kyori.adventure.text.Component prompt =
+            net.kyori.adventure.text.Component.text("Install Ben's Forbidden Weapons textures!");
+
+        getServer().getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @org.bukkit.event.EventHandler
+            public void onJoin(org.bukkit.event.player.PlayerJoinEvent event) {
+                event.getPlayer().setResourcePack(url, finalSha1, false, prompt);
+            }
+        }, this);
+
+        getLogger().info("Resource pack auto-send registered (SHA-1: " + finalSha1.substring(0, 8) + "...)");
+    }
 }

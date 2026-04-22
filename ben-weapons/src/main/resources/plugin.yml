@@ -1,5 +1,6 @@
 name: BenWeapons
 version: ${project.version}
+resource-pack-sha1: ${resource.pack.sha1}
 main: com.benserver.weapons.BenWeaponsPlugin
 api-version: '1.21'
 description: Custom craftable weapons exclusive to Ben's server!

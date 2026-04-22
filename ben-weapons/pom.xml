@@ -15,6 +15,7 @@
         <base.version>2.0</base.version>
         <build.number>local</build.number>
         <revision>${base.version}.${build.number}</revision>
+        <resource.pack.sha1>unknown</resource.pack.sha1>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
