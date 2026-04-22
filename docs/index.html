@@ -502,6 +502,46 @@
 		<div class="info-box">
 			<strong>Requirements:</strong> Paper 1.21.4+ &nbsp;·&nbsp; Java 21+
 		</div>
+
+		<h2 style="margin-top:48px;">Custom Weapon Textures (Resource Pack)</h2>
+		<p style="color:var(--muted); margin-bottom:24px; font-size:0.92rem;">The resource pack gives each weapon its own unique look. Players who decline it will still see normal netherite sword / axe / mace visuals — no gameplay impact.</p>
+
+		<div style="margin-bottom:24px;">
+			<a href="https://github.com/hypo321/ben-weapons/releases/latest/download/BenWeapons-ResourcePack.zip" class="btn" style="display:inline-flex;" download>
+				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+				Download ResourcePack.zip
+			</a>
+		</div>
+
+		<div class="steps">
+			<div class="step">
+				<div class="step-num">1</div>
+				<div class="step-body">
+					<h4>One-time setup — add to <code>server.properties</code></h4>
+					<p>Open <code>server.properties</code> and add or update these lines:</p>
+					<pre style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:14px 16px; font-size:0.8rem; overflow-x:auto; margin-top:10px; line-height:1.6;">resource-pack=https://github.com/hypo321/ben-weapons/releases/latest/download/BenWeapons-ResourcePack.zip
+resource-pack-sha1=<em style="color:var(--muted);">see latest release notes for this value</em>
+resource-pack-prompt={"text":"Install Ben's Forbidden Weapons textures!","color":"gold"}
+resource-pack-required=false</pre>
+					<p style="color:var(--muted); font-size:0.85rem; margin-top:8px;">The URL never changes between updates. Only the <code>resource-pack-sha1</code> needs updating each release — copy it from the release notes on GitHub.</p>
+				</div>
+			</div>
+			<div class="step">
+				<div class="step-num">2</div>
+				<div class="step-body">
+					<h4>Restart the server</h4>
+					<p>A full stop → start is required for <code>server.properties</code> changes to take effect.</p>
+				</div>
+			</div>
+			<div class="step">
+				<div class="step-num">3</div>
+				<div class="step-body">
+					<h4>Players accept the pack on join</h4>
+					<p>Each player will see a prompt when they join. If they accept, all three weapons display Ben's custom textures automatically.</p>
+					<p style="color:var(--muted); font-size:0.85rem; margin-top:6px;">Already have a resource pack on your server? Merge our <code>assets/</code> folder into your existing pack — don't replace the whole thing.</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 
@@ -516,7 +556,7 @@
 
 			<div style="background:var(--card); border:1px solid var(--border); border-left:3px solid var(--fire); border-radius:10px; padding:16px 20px;">
 				<div class="code-block" style="margin:0 0 6px;">/sword ability activate</div>
-				<p style="color:var(--muted); font-size:0.85rem;">Activate the Fire Blitz Sword — must be holding it in your main hand.</p>
+				<p style="color:var(--muted); font-size:0.85rem;">Activate the Forbidden Sword — must be holding it in your main hand.</p>
 			</div>
 
 			<div style="background:var(--card); border:1px solid var(--border); border-left:3px solid var(--green); border-radius:10px; padding:16px 20px;">
