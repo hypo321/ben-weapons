@@ -51,27 +51,19 @@ jobs:
       - name: Create GitHub Release
         run: |
           cp -f ben-weapons/target/BenWeapons.jar BenWeapons.jar
-          SHA1=${{ steps.rp_sha1.outputs.sha1 }}
+          cat > release-notes.md << 'NOTES'
+          ## Installation
+
+          ### Plugin
+          Drop `BenWeapons.jar` into your server's `plugins/` folder and restart.
+
+          ### Resource Pack
+          No setup needed — the plugin automatically sends the resource pack to players when they join. Just install the JAR.
+          NOTES
           gh release create "v${{ steps.version.outputs.version }}" \
             BenWeapons.jar \
             BenWeapons-ResourcePack.zip \
             --title "BenWeapons v${{ steps.version.outputs.version }}" \
-            --notes "$(cat <<EOF
-## Installation
-
-### Plugin
-Drop \`BenWeapons.jar\` into your server's \`plugins/\` folder and restart.
-
-### Resource Pack
-Add these lines to \`server.properties\` (one-time setup — the URL never changes):
-\`\`\`
-resource-pack=https://github.com/hypo321/ben-weapons/releases/latest/download/BenWeapons-ResourcePack.zip
-resource-pack-sha1=${SHA1}
-resource-pack-prompt={"text":"Install Ben's Forbidden Weapons textures!","color":"gold"}
-resource-pack-required=false
-\`\`\`
-> Update \`resource-pack-sha1\` to the value above each time you install a new version — this forces players to redownload the updated pack.
-EOF
-)"
+            --notes-file release-notes.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
