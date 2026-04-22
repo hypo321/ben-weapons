@@ -19,41 +19,27 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build JAR
-        run: mvn clean package -q -f ben-weapons/pom.xml
-
-      - name: Read version from pom.xml
+      - name: Derive version
         id: version
         run: |
-          VERSION=$(mvn help:evaluate -f ben-weapons/pom.xml -Dexpression=project.version -q -DforceStdout)
+          BASE=$(mvn help:evaluate -f ben-weapons/pom.xml -Dexpression=base.version -q -DforceStdout)
+          VERSION="${BASE}.${{ github.run_number }}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Check if release already exists
-        id: check_release
+      - name: Build JAR
         run: |
-          if gh release view "v${{ steps.version.outputs.version }}" &>/dev/null; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          mvn clean package -q -f ben-weapons/pom.xml \
+            -Dbuild.number=${{ github.run_number }}
 
-      - name: Copy JAR to root
-        run: cp -f ben-weapons/target/BenWeapons.jar BenWeapons.jar
+      - name: Verify version in JAR
+        run: |
+          unzip -p ben-weapons/target/BenWeapons.jar plugin.yml | grep "^version"
 
       - name: Create GitHub Release
-        if: steps.check_release.outputs.exists == 'false'
         run: |
+          cp -f ben-weapons/target/BenWeapons.jar BenWeapons.jar
           gh release create "v${{ steps.version.outputs.version }}" BenWeapons.jar \
             --title "BenWeapons v${{ steps.version.outputs.version }}" \
             --generate-notes
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update existing release asset
-        if: steps.check_release.outputs.exists == 'true'
-        run: |
-          gh release upload "v${{ steps.version.outputs.version }}" BenWeapons.jar --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

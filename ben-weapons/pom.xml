@@ -6,10 +6,15 @@
 
     <groupId>com.benserver</groupId>
     <artifactId>ben-weapons</artifactId>
-    <version>1.4.3</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <properties>
+        <!-- Base version — only update this when making a significant change.
+             The build number is appended automatically by CI (e.g. 2.0.42). -->
+        <base.version>2.0</base.version>
+        <build.number>local</build.number>
+        <revision>${base.version}.${build.number}</revision>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
