@@ -133,6 +133,20 @@
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 			gap: 20px;
+			align-items: start;
+		}
+
+		/* When all 3 cards fit side-by-side, use subgrid rows so content aligns */
+		@media (min-width: 820px) {
+			.weapons-grid {
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: auto;
+			}
+			.weapon-card {
+				display: grid;
+				grid-row: span 4;
+				grid-template-rows: subgrid;
+			}
 		}
 
 		.weapon-card {
@@ -150,6 +164,8 @@
 		.weapon-card.dash  { border-color: var(--dash); }
 
 		.weapon-icon {
+			display: flex;
+			justify-content: center;
 			margin-bottom: 12px;
 		}
 
@@ -176,7 +192,7 @@
 			margin-bottom: 16px;
 		}
 
-		.tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+		.tag-row { display: flex; gap: 8px; flex-wrap: wrap; align-content: start; }
 
 		.tag {
 			font-size: 0.75rem;
@@ -232,6 +248,13 @@
 			font-weight: 600;
 			line-height: 1.2;
 			padding: 3px;
+		}
+
+		.cell img {
+			width: 40px;
+			height: 40px;
+			image-rendering: pixelated;
+			image-rendering: crisp-edges;
 		}
 
 		.cell.highlight {
@@ -396,15 +419,15 @@
 		<div class="recipe-block fire">
 			<h3>⚔ Forbidden Sword</h3>
 			<div class="grid-3x3">
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Netherite<br>Ingot</div>
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Blaze<br>Powder</div>
-				<div class="cell highlight">Nether<br>Quartz</div>
-				<div class="cell highlight">Blaze<br>Powder</div>
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Blaze<br>Rod</div>
-				<div class="cell highlight">Player<br>Head</div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/netherite_ingot.png" title="Netherite Ingot" alt="Netherite Ingot"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/blaze_powder.png" title="Blaze Powder" alt="Blaze Powder"></div>
+				<div class="cell highlight"><img src="img/nether_quartz.png" title="Nether Quartz" alt="Nether Quartz"></div>
+				<div class="cell highlight"><img src="img/blaze_powder.png" title="Blaze Powder" alt="Blaze Powder"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/blaze_rod.png" title="Blaze Rod" alt="Blaze Rod"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
 			</div>
 			<p class="recipe-legend">
 				<span>4×</span> Player Head &nbsp;·&nbsp;
@@ -419,15 +442,15 @@
 		<div class="recipe-block lightning">
 			<h3>⚡ Forbidden Axe</h3>
 			<div class="grid-3x3">
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Netherite<br>Axe</div>
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Gold<br>Ingot</div>
-				<div class="cell highlight">Lightning<br>Rod</div>
-				<div class="cell highlight">Gold<br>Ingot</div>
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Lightning<br>Rod</div>
-				<div class="cell highlight">Player<br>Head</div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/netherite_axe.png" title="Netherite Axe" alt="Netherite Axe"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/gold_ingot.png" title="Gold Ingot" alt="Gold Ingot"></div>
+				<div class="cell highlight"><img src="img/lightning_rod.png" title="Lightning Rod" alt="Lightning Rod"></div>
+				<div class="cell highlight"><img src="img/gold_ingot.png" title="Gold Ingot" alt="Gold Ingot"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/lightning_rod.png" title="Lightning Rod" alt="Lightning Rod"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
 			</div>
 			<p class="recipe-legend">
 				<span>4×</span> Player Head &nbsp;·&nbsp;
@@ -441,15 +464,15 @@
 		<div class="recipe-block dash">
 			<h3>💨 Forbidden Mace</h3>
 			<div class="grid-3x3">
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Heavy<br>Core</div>
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Echo<br>Shard</div>
-				<div class="cell highlight">Netherite<br>Ingot</div>
-				<div class="cell highlight">Echo<br>Shard</div>
-				<div class="cell highlight">Player<br>Head</div>
-				<div class="cell highlight">Breeze<br>Rod</div>
-				<div class="cell highlight">Player<br>Head</div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/heavy_core.png" title="Heavy Core" alt="Heavy Core"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/echo_shard.png" title="Echo Shard" alt="Echo Shard"></div>
+				<div class="cell highlight"><img src="img/netherite_ingot.png" title="Netherite Ingot" alt="Netherite Ingot"></div>
+				<div class="cell highlight"><img src="img/echo_shard.png" title="Echo Shard" alt="Echo Shard"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
+				<div class="cell highlight"><img src="img/breeze_rod.png" title="Breeze Rod" alt="Breeze Rod"></div>
+				<div class="cell highlight"><img src="img/player_head.png" title="Player Head" alt="Player Head"></div>
 			</div>
 			<p class="recipe-legend">
 				<span>4×</span> Player Head &nbsp;·&nbsp;
