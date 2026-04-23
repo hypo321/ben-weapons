@@ -150,8 +150,14 @@
 		.weapon-card.dash  { border-color: var(--dash); }
 
 		.weapon-icon {
-			font-size: 2.5rem;
 			margin-bottom: 12px;
+		}
+
+		.weapon-icon img {
+			width: 64px;
+			height: 64px;
+			image-rendering: pixelated;
+			image-rendering: crisp-edges;
 		}
 
 		.weapon-card h3 {
@@ -344,7 +350,7 @@
 		<div class="weapons-grid">
 
 			<div class="weapon-card fire">
-				<div class="weapon-icon">⚔</div>
+				<div class="weapon-icon"><img src="img/sword.png" alt="Forbidden Sword"></div>
 				<h3>Forbidden Sword</h3>
 				<p>A netherite sword imbued with blaze energy. Type <code>/sword ability activate</code> while holding it to launch a powerful fireball in the direction you're looking.</p>
 				<div class="tag-row">
@@ -355,7 +361,7 @@
 			</div>
 
 			<div class="weapon-card lightning">
-				<div class="weapon-icon">⚡</div>
+				<div class="weapon-icon"><img src="img/axe.png" alt="Forbidden Axe"></div>
 				<h3>Forbidden Axe</h3>
 				<p>A gold-tipped axe crackling with storm energy. <strong>Automatically</strong> calls down a lightning bolt on your target every time you land a hit — no button press needed.</p>
 				<div class="tag-row">
@@ -366,7 +372,7 @@
 			</div>
 
 			<div class="weapon-card dash">
-				<div class="weapon-icon">💨</div>
+				<div class="weapon-icon"><img src="img/mace.png" alt="Forbidden Mace"></div>
 				<h3>Forbidden Mace</h3>
 				<p>A mace bound with breeze and echo energy. Press <strong>F (swap-hands)</strong> to launch yourself ~30 blocks forward. Comes pre-enchanted with Density V and Breach IV.</p>
 				<div class="tag-row">
