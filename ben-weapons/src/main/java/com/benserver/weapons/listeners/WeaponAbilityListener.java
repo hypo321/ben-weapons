@@ -72,6 +72,10 @@ public class WeaponAbilityListener implements Listener {
 
     // ── SWORD: activated via /sword ability activate (see SwordCommand) ──
     public void activateFireExplosion(Player player) {
+        activateFireExplosion(player, null);
+    }
+
+    public void activateFireExplosion(Player player, CooldownManager cooldownManager) {
         var targetBlock = player.getTargetBlockExact(30);
         if (targetBlock == null) {
             player.sendMessage(ChatColor.RED + "No target in range!");
@@ -129,6 +133,11 @@ public class WeaponAbilityListener implements Listener {
 
         // Give player temporary fire resistance
         player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 200, 0, false, true)); // 10 seconds
+
+        // Set cooldown only after successful activation
+        if (cooldownManager != null) {
+            cooldownManager.setCooldown(player, CustomWeapons.FIRE_SWORD_ID + "_explosion");
+        }
     }
 
     private void activateLightningStrike(Player player) {
@@ -155,6 +164,10 @@ public class WeaponAbilityListener implements Listener {
     }
 
     public void activateLightningStorm(Player player) {
+        activateLightningStorm(player, null);
+    }
+
+    public void activateLightningStorm(Player player, CooldownManager cooldownManager) {
         var targetBlock = player.getTargetBlockExact(40);
         if (targetBlock == null) {
             player.sendMessage(ChatColor.RED + "No target in range!");
@@ -194,6 +207,11 @@ public class WeaponAbilityListener implements Listener {
 
         // Give player regeneration bonus
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 2, false, true)); // Regen III for 30s
+
+        // Set cooldown only after successful activation
+        if (cooldownManager != null) {
+            cooldownManager.setCooldown(player, CustomWeapons.LIGHTNING_AXE_ID + "_storm");
+        }
     }
 
     private void activateDash(Player player) {

@@ -47,8 +47,7 @@ public class AxeCommand implements CommandExecutor {
         }
 
         // Activate lightning storm
-        abilityListener.activateLightningStorm(player);
-        cooldownManager.setCooldown(player, stormCooldownKey); // Uses hardcoded duration
+        abilityListener.activateLightningStorm(player, cooldownManager);
 
         return true;
     }

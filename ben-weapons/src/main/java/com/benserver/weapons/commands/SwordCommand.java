@@ -50,8 +50,7 @@ public class SwordCommand implements CommandExecutor {
             return true;
         }
 
-        abilityListener.activateFireExplosion(player);
-        cooldownManager.setCooldown(player, explosionCooldownKey);
+        abilityListener.activateFireExplosion(player, cooldownManager);
         return true;
     }
 }
