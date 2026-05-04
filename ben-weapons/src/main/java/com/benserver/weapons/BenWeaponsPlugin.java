@@ -1,5 +1,6 @@
 package com.benserver.weapons;
 
+import com.benserver.weapons.commands.AxeCommand;
 import com.benserver.weapons.commands.SwordCommand;
 import com.benserver.weapons.commands.TrustCommand;
 import com.benserver.weapons.commands.WeaponsCommand;
@@ -42,6 +43,7 @@ public class BenWeaponsPlugin extends JavaPlugin {
 
         getCommand("benweapons").setExecutor(new WeaponsCommand(customWeapons, this));
         getCommand("sword").setExecutor(new SwordCommand(customWeapons, cooldownManager, abilityListener));
+        getCommand("axe").setExecutor(new AxeCommand(customWeapons, cooldownManager, abilityListener));
         TrustCommand trustCmd   = new TrustCommand(trustManager, true);
         TrustCommand untrustCmd = new TrustCommand(trustManager, false);
         getCommand("trust").setExecutor(trustCmd);

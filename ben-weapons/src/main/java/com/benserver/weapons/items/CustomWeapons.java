@@ -62,12 +62,15 @@ public class CustomWeapons {
             ChatColor.AQUA + "Auto-strikes lightning on hit when off cooldown!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "25 seconds",
             "",
-            ChatColor.AQUA + "⚔ Custom Sharpness " + ChatColor.WHITE + "VII",
+            ChatColor.LIGHT_PURPLE + "Lightning Storm: " + ChatColor.WHITE + "/axe ability activate",
+            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "60 seconds",
+            "",
+            ChatColor.AQUA + "⚔ Custom Sharpness " + ChatColor.WHITE + "X",
             ChatColor.GREEN + "✦ On Use: " + ChatColor.WHITE + "Regeneration II (20 seconds)"
         ));
 
-        // Store custom damage bonus (Sharpness VII = 4.0 extra damage)
-        meta.getPersistentDataContainer().set(damageBonusKey, PersistentDataType.DOUBLE, 4.0);
+        // Store custom damage bonus (Sharpness X = 6.0 extra damage)
+        meta.getPersistentDataContainer().set(damageBonusKey, PersistentDataType.DOUBLE, 6.0);
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);

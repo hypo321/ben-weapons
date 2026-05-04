@@ -34,6 +34,7 @@ public class CooldownManager {
         return switch (weaponId) {
             case "fire_blitz_sword" -> 30;
             case "lightning_axe"   -> 25;
+            case "lightning_axe_storm" -> 60;
             case "dash_mace"       -> 15;
             default                -> 30;
         };

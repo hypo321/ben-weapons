@@ -109,6 +109,48 @@ public class WeaponAbilityListener implements Listener {
             + ChatColor.GRAY + "(25s cooldown)");
     }
 
+    public void activateLightningStorm(Player player) {
+        var targetBlock = player.getTargetBlockExact(40);
+        if (targetBlock == null) {
+            player.sendMessage(ChatColor.RED + "No target in range!");
+            return;
+        }
+
+        Location stormCenter = targetBlock.getLocation().add(0.5, 1, 0.5);
+        World world = player.getWorld();
+
+        // Check for trusted players in the area
+        for (Entity nearby : world.getNearbyEntities(stormCenter, 15, 10, 15)) {
+            if (nearby instanceof Player hit && trustManager.isTrusted(player.getUniqueId(), hit.getUniqueId())) {
+                player.sendMessage(ChatColor.YELLOW + "Lightning storm redirected — " + hit.getName() + " is nearby.");
+                return;
+            }
+        }
+
+        // Create lightning storm effect
+        player.sendMessage(ChatColor.LIGHT_PURPLE + "⚡ LIGHTNING STORM! " + ChatColor.GRAY + "(60s cooldown)");
+        world.playSound(stormCenter, Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 2.0f, 0.8f);
+
+        // Schedule multiple lightning strikes
+        for (int i = 0; i < 7; i++) {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                // Random position within 10-block radius
+                double angle = Math.random() * 2 * Math.PI;
+                double radius = Math.random() * 10;
+                double x = stormCenter.getX() + Math.cos(angle) * radius;
+                double z = stormCenter.getZ() + Math.sin(angle) * radius;
+                double y = stormCenter.getY() + Math.random() * 5;
+
+                Location strikeLoc = new Location(world, x, y, z);
+                world.strikeLightning(strikeLoc);
+                world.spawnParticle(Particle.ELECTRIC_SPARK, strikeLoc, 10, 0.5, 0.5, 0.5, 0.1);
+            }, i * 5L); // Strike every 5 ticks (0.25 seconds)
+        }
+
+        // Give player regeneration bonus
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 2, false, true)); // Regen III for 30s
+    }
+
     private void activateDash(Player player) {
         Vector dir = player.getEyeLocation().getDirection();
         dir.setY(Math.max(dir.getY(), 0.1));

@@ -15,6 +15,10 @@ commands:
     description: Activate the Forbidden Sword ability
     usage: /sword ability activate
     permission: benweapons.sword
+  axe:
+    description: Activate the Forbidden Axe lightning storm ability
+    usage: /axe ability activate
+    permission: benweapons.axe
   trust:
     description: Trust a player so your weapons won't harm them
     usage: /trust <player>
@@ -30,6 +34,9 @@ permissions:
     default: op
   benweapons.sword:
     description: Allows using /sword ability activate
+    default: true
+  benweapons.axe:
+    description: Allows using /axe ability activate
     default: true
   benweapons.trust:
     description: Allows using /trust and /untrust
