@@ -38,7 +38,14 @@ public class CustomWeapons {
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Fire Resistance (always active)"
         ));
 
-        meta.addEnchant(Enchantment.SHARPNESS, 7, true);
+        // Try to get Sharpness via NamespacedKey
+        Enchantment sharpness = Enchantment.getByKey(org.bukkit.NamespacedKey.minecraft("sharpness"));
+        if (sharpness != null) {
+            meta.addEnchant(sharpness, 7, true);
+            plugin.getLogger().info("Added Sharpness 7 to Forbidden Sword");
+        } else {
+            plugin.getLogger().warning("Could not find Sharpness enchantment!");
+        }
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
@@ -61,7 +68,14 @@ public class CustomWeapons {
             ChatColor.GREEN + "✦ On Use: " + ChatColor.WHITE + "Regeneration II (20 seconds)"
         ));
 
-        meta.addEnchant(Enchantment.SHARPNESS, 7, true);
+        // Try to get Sharpness via NamespacedKey
+        Enchantment sharpness = Enchantment.getByKey(org.bukkit.NamespacedKey.minecraft("sharpness"));
+        if (sharpness != null) {
+            meta.addEnchant(sharpness, 7, true);
+            plugin.getLogger().info("Added Sharpness 7 to Forbidden Axe");
+        } else {
+            plugin.getLogger().warning("Could not find Sharpness enchantment!");
+        }
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
