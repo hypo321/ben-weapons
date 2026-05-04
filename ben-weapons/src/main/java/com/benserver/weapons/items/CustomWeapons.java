@@ -19,11 +19,13 @@ public class CustomWeapons {
     public static final String DASH_MACE_ID     = "dash_mace";
 
     private final NamespacedKey weaponKey;
+    private final NamespacedKey damageBonusKey;
     private final JavaPlugin plugin;
 
     public CustomWeapons(JavaPlugin plugin) {
         this.plugin = plugin;
         this.weaponKey = new NamespacedKey(plugin, "weapon_type");
+        this.damageBonusKey = new NamespacedKey(plugin, "damage_bonus");
     }
 
     public ItemStack createFireBlitzSword() {
@@ -35,17 +37,12 @@ public class CustomWeapons {
             ChatColor.GOLD + "Use /sword ability activate to unleash a fireball!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "30 seconds",
             "",
+            ChatColor.AQUA + "⚔ Custom Sharpness " + ChatColor.WHITE + "VII",
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Fire Resistance (always active)"
         ));
 
-        // Try to get Sharpness via NamespacedKey
-        Enchantment sharpness = Enchantment.getByKey(org.bukkit.NamespacedKey.minecraft("sharpness"));
-        if (sharpness != null) {
-            meta.addEnchant(sharpness, 7, true);
-            plugin.getLogger().info("Added Sharpness 7 to Forbidden Sword");
-        } else {
-            plugin.getLogger().warning("Could not find Sharpness enchantment!");
-        }
+        // Store custom damage bonus (Sharpness VII = 4.0 extra damage)
+        meta.getPersistentDataContainer().set(damageBonusKey, PersistentDataType.DOUBLE, 4.0);
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
@@ -65,17 +62,12 @@ public class CustomWeapons {
             ChatColor.AQUA + "Auto-strikes lightning on hit when off cooldown!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "25 seconds",
             "",
+            ChatColor.AQUA + "⚔ Custom Sharpness " + ChatColor.WHITE + "VII",
             ChatColor.GREEN + "✦ On Use: " + ChatColor.WHITE + "Regeneration II (20 seconds)"
         ));
 
-        // Try to get Sharpness via NamespacedKey
-        Enchantment sharpness = Enchantment.getByKey(org.bukkit.NamespacedKey.minecraft("sharpness"));
-        if (sharpness != null) {
-            meta.addEnchant(sharpness, 7, true);
-            plugin.getLogger().info("Added Sharpness 7 to Forbidden Axe");
-        } else {
-            plugin.getLogger().warning("Could not find Sharpness enchantment!");
-        }
+        // Store custom damage bonus (Sharpness VII = 4.0 extra damage)
+        meta.getPersistentDataContainer().set(damageBonusKey, PersistentDataType.DOUBLE, 4.0);
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
@@ -191,5 +183,6 @@ public class CustomWeapons {
     }
 
     public NamespacedKey getWeaponKey() { return weaponKey; }
+    public NamespacedKey getDamageBonusKey() { return damageBonusKey; }
     public JavaPlugin getPlugin() { return plugin; }
 }

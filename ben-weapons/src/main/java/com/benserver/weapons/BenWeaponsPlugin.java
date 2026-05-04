@@ -5,6 +5,7 @@ import com.benserver.weapons.commands.TrustCommand;
 import com.benserver.weapons.commands.WeaponsCommand;
 import com.benserver.weapons.items.CustomWeapons;
 import com.benserver.weapons.listeners.CraftLimitListener;
+import com.benserver.weapons.listeners.CustomDamageListener;
 import com.benserver.weapons.listeners.InventoryListener;
 import com.benserver.weapons.listeners.WeaponAbilityListener;
 import com.benserver.weapons.managers.CooldownManager;
@@ -33,6 +34,7 @@ public class BenWeaponsPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(abilityListener, this);
         getServer().getPluginManager().registerEvents(new InventoryListener(customWeapons), this);
         getServer().getPluginManager().registerEvents(new CraftLimitListener(customWeapons, craftLimitManager), this);
+        getServer().getPluginManager().registerEvents(new CustomDamageListener(customWeapons), this);
 
         new PassiveEffectsTask(customWeapons).runTaskTimer(this, 0L, 20L);
 
