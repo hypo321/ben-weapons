@@ -38,8 +38,8 @@ public class CustomWeapons {
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Fire Resistance (always active)"
         ));
 
+        meta.addEnchant(Enchantment.SHARPNESS, 7, true);
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         meta.setCustomModelData(1001);
@@ -61,8 +61,8 @@ public class CustomWeapons {
             ChatColor.GREEN + "✦ On Use: " + ChatColor.WHITE + "Regeneration II (20 seconds)"
         ));
 
+        meta.addEnchant(Enchantment.SHARPNESS, 7, true);
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         meta.setCustomModelData(1002);
