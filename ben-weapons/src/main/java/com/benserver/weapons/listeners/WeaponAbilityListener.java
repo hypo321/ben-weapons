@@ -71,19 +71,64 @@ public class WeaponAbilityListener implements Listener {
     }
 
     // ── SWORD: activated via /sword ability activate (see SwordCommand) ──
-    public void activateFireBlitz(Player player) {
-        Location eye = player.getEyeLocation();
-        Vector dir = eye.getDirection().normalize();
+    public void activateFireExplosion(Player player) {
+        var targetBlock = player.getTargetBlockExact(30);
+        if (targetBlock == null) {
+            player.sendMessage(ChatColor.RED + "No target in range!");
+            return;
+        }
 
-        Fireball fb = player.getWorld().spawn(eye.add(dir.clone().multiply(1.5)), Fireball.class);
-        fb.setDirection(dir.multiply(2));
-        fb.setShooter(player);
-        fb.setYield(2.5f);
-        fb.setIsIncendiary(true);
+        Location explosionCenter = targetBlock.getLocation().add(0.5, 1, 0.5);
+        World world = player.getWorld();
 
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0f, 0.8f);
-        player.getWorld().spawnParticle(Particle.FLAME, eye, 20, 0.2, 0.2, 0.2, 0.05);
-        player.sendMessage(ChatColor.RED + "🔥 Forbidden Sword! " + ChatColor.GRAY + "(30s cooldown)");
+        // Check for trusted players in the area
+        for (Entity nearby : world.getNearbyEntities(explosionCenter, 12, 8, 12)) {
+            if (nearby instanceof Player hit && trustManager.isTrusted(player.getUniqueId(), hit.getUniqueId())) {
+                player.sendMessage(ChatColor.YELLOW + "Fire explosion redirected — " + hit.getName() + " is nearby.");
+                return;
+            }
+        }
+
+        // Create massive fire explosion
+        player.sendMessage(ChatColor.RED + "🔥 FIRE EXPLOSION! " + ChatColor.GRAY + "(45s cooldown)");
+
+        // Visual and sound effects
+        world.playSound(explosionCenter, Sound.ENTITY_GENERIC_EXPLODE, 3.0f, 0.8f);
+        world.playSound(explosionCenter, Sound.ENTITY_BLAZE_SHOOT, 2.0f, 0.6f);
+
+        // Create explosion
+        world.createExplosion(explosionCenter, 4.0f, false, true); // 4.0 power, no fire break, sets fires
+
+        // Additional fire particles for dramatic effect
+        for (int i = 0; i < 50; i++) {
+            double offsetX = (Math.random() - 0.5) * 8;
+            double offsetY = Math.random() * 4;
+            double offsetZ = (Math.random() - 0.5) * 8;
+            Location particleLoc = explosionCenter.clone().add(offsetX, offsetY, offsetZ);
+            world.spawnParticle(Particle.FLAME, particleLoc, 5, 0.2, 0.2, 0.2, 0.1);
+            world.spawnParticle(Particle.LAVA, particleLoc, 2, 0.1, 0.1, 0.1, 0.05);
+        }
+
+        // Damage all entities in radius (except trusted players)
+        for (Entity entity : world.getNearbyEntities(explosionCenter, 8, 6, 8)) {
+            if (entity instanceof LivingEntity living) {
+                if (entity instanceof Player target && trustManager.isTrusted(player.getUniqueId(), target.getUniqueId())) {
+                    continue; // Skip trusted players
+                }
+
+                // Calculate damage based on distance from center
+                double distance = living.getLocation().distance(explosionCenter);
+                double damage = Math.max(0, 15.0 - (distance * 1.5)); // 15 damage at center, falloff
+
+                if (damage > 0) {
+                    living.damage(damage, player);
+                    living.setFireTicks(100); // Set on fire for 5 seconds
+                }
+            }
+        }
+
+        // Give player temporary fire resistance
+        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 200, 0, false, true)); // 10 seconds
     }
 
     private void activateLightningStrike(Player player) {

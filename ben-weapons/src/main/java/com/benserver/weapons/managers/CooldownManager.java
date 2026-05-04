@@ -33,6 +33,7 @@ public class CooldownManager {
     private int getCooldownDuration(String weaponId) {
         return switch (weaponId) {
             case "fire_blitz_sword" -> 30;
+            case "fire_blitz_sword_explosion" -> 45;
             case "lightning_axe"   -> 25;
             case "lightning_axe_storm" -> 60;
             case "dash_mace"       -> 15;

@@ -34,15 +34,15 @@ public class CustomWeapons {
 
         meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "⚔ Forbidden Sword");
         meta.setLore(Arrays.asList(
-            ChatColor.GOLD + "Use /sword ability activate to unleash a fireball!",
-            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "30 seconds",
+            ChatColor.GOLD + "Fire Explosion: " + ChatColor.WHITE + "/sword ability activate",
+            ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "45 seconds",
             "",
-            ChatColor.AQUA + "⚔ Custom Sharpness " + ChatColor.WHITE + "VII",
+            ChatColor.RED + "⚔ Custom Sharpness " + ChatColor.WHITE + "XIII",
             ChatColor.YELLOW + "✦ Passive: " + ChatColor.WHITE + "Fire Resistance (always active)"
         ));
 
-        // Store custom damage bonus (Sharpness VII = 4.0 extra damage)
-        meta.getPersistentDataContainer().set(damageBonusKey, PersistentDataType.DOUBLE, 4.0);
+        // Store custom damage bonus (Sharpness XIII = 8.0 extra damage)
+        meta.getPersistentDataContainer().set(damageBonusKey, PersistentDataType.DOUBLE, 8.0);
         meta.addEnchant(Enchantment.UNBREAKING, 3, true);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);

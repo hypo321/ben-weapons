@@ -41,15 +41,17 @@ public class SwordCommand implements CommandExecutor {
             return true;
         }
 
-        int cooldownLeft = cooldownManager.getCooldownSeconds(player, CustomWeapons.FIRE_SWORD_ID);
+        // Check cooldown for fire explosion (separate from any other sword abilities)
+        String explosionCooldownKey = CustomWeapons.FIRE_SWORD_ID + "_explosion";
+        int cooldownLeft = cooldownManager.getCooldownSeconds(player, explosionCooldownKey);
         if (cooldownLeft > 0) {
-            player.sendMessage(ChatColor.RED + "⏳ Wait " + cooldownLeft + " more second"
+            player.sendMessage(ChatColor.RED + "⏳ Fire explosion on cooldown! Wait " + cooldownLeft + " more second"
                 + (cooldownLeft == 1 ? "" : "s") + "!");
             return true;
         }
 
-        abilityListener.activateFireBlitz(player);
-        cooldownManager.setCooldown(player, CustomWeapons.FIRE_SWORD_ID);
+        abilityListener.activateFireExplosion(player);
+        cooldownManager.setCooldown(player, explosionCooldownKey);
         return true;
     }
 }
