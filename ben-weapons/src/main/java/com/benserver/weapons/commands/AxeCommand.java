@@ -29,6 +29,14 @@ public class AxeCommand implements CommandExecutor {
             return true;
         }
 
+        // Validate: /axe ability activate
+        if (args.length < 2
+                || !args[0].equalsIgnoreCase("ability")
+                || !args[1].equalsIgnoreCase("activate")) {
+            player.sendMessage(ChatColor.GOLD + "Usage: /axe ability activate");
+            return true;
+        }
+
         ItemStack weapon = player.getInventory().getItemInMainHand();
         String weaponType = customWeapons.getWeaponType(weapon);
 
