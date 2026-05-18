@@ -34,7 +34,7 @@ public class CustomWeapons {
 
         meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "⚔ Forbidden Sword");
         meta.setLore(Arrays.asList(
-            ChatColor.GOLD + "Fire Explosion: " + ChatColor.WHITE + "/sword ability activate",
+            ChatColor.GOLD + "Fire Explosion: " + ChatColor.WHITE + "Right-click or /sword",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "45 seconds",
             "",
             ChatColor.RED + "⚔ Custom Sharpness " + ChatColor.WHITE + "XIII",
@@ -62,7 +62,7 @@ public class CustomWeapons {
             ChatColor.AQUA + "Auto-strikes lightning on hit when off cooldown!",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "25 seconds",
             "",
-            ChatColor.LIGHT_PURPLE + "Lightning Storm: " + ChatColor.WHITE + "/axe ability activate",
+            ChatColor.LIGHT_PURPLE + "Lightning Storm: " + ChatColor.WHITE + "Right-click or /axe",
             ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + "60 seconds",
             "",
             ChatColor.AQUA + "⚔ Custom Sharpness " + ChatColor.WHITE + "X",

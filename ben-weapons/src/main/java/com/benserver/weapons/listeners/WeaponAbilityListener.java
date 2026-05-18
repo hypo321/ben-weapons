@@ -8,7 +8,9 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.*;
 import org.bukkit.util.Vector;
 
@@ -68,6 +70,45 @@ public class WeaponAbilityListener implements Listener {
 
         activateLightningStrike(player);
         cooldownManager.setCooldown(player, CustomWeapons.LIGHTNING_AXE_ID);
+    }
+
+    // ── SWORD & AXE: Right-click to activate abilities ────────────────
+    @EventHandler
+    public void onRightClick(PlayerInteractEvent event) {
+        // Only handle right-click actions (air or block)
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
+        Player player = event.getPlayer();
+        ItemStack weapon = player.getInventory().getItemInMainHand();
+        String weaponType = customWeapons.getWeaponType(weapon);
+
+        if (weaponType == null) return;
+
+        // Prevent off-hand interactions from triggering
+        if (event.getHand() == org.bukkit.inventory.EquipmentSlot.OFF_HAND) return;
+
+        event.setCancelled(true);
+
+        switch (weaponType) {
+            case CustomWeapons.FIRE_SWORD_ID -> {
+                String cooldownKey = CustomWeapons.FIRE_SWORD_ID + "_explosion";
+                int cooldownLeft = cooldownManager.getCooldownSeconds(player, cooldownKey);
+                if (cooldownLeft > 0) {
+                    player.sendMessage(ChatColor.RED + "⏳ Fire explosion on cooldown! Wait " + cooldownLeft + "s!");
+                    return;
+                }
+                activateFireExplosion(player, cooldownManager);
+            }
+            case CustomWeapons.LIGHTNING_AXE_ID -> {
+                String cooldownKey = CustomWeapons.LIGHTNING_AXE_ID + "_storm";
+                int cooldownLeft = cooldownManager.getCooldownSeconds(player, cooldownKey);
+                if (cooldownLeft > 0) {
+                    player.sendMessage(ChatColor.RED + "⏳ Lightning storm on cooldown! Wait " + cooldownLeft + "s!");
+                    return;
+                }
+                activateLightningStorm(player, cooldownManager);
+            }
+        }
     }
 
     // ── SWORD: activated via /sword ability activate (see SwordCommand) ──
